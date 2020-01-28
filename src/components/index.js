@@ -7,3 +7,8 @@ export * from './custom-button/custom-button.component';
 export * from './form-input/form-input.component';
 export * from './header/header.component';
 export * from './sign-up/sign-up.component';
+export * from './cart-icon/cart-icon.component';
+export * from './cart-dropdown/cart-dropdown.component';
+export * from './cart-item/cart-item.component';
+export * from './checkout/checkout.component';
+export * from './checkout-item/checkout-item.component';

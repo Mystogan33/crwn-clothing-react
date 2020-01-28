@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
+import { CartIcon, CartDropdown } from '../index';
 
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden }}) => ({
+  currentUser,
+  hidden
 });
 
 export const Header = connect(mapStateToProps)(
-  ({ currentUser }) => {
+  ({ currentUser, hidden }) => {
 
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -19,7 +21,7 @@ export const Header = connect(mapStateToProps)(
       document.addEventListener('scroll', () => {
         const isTop = window.scrollY > 100;
         if (isTop !== isScrolled) {
-            setIsScrolled(isTop);
+          setIsScrolled(isTop);
         }
       });
     });
@@ -39,7 +41,11 @@ export const Header = connect(mapStateToProps)(
               SIGN IN
             </Link>
           }
+          <CartIcon />
         </div>
+        {
+          hidden ? null : <CartDropdown />
+        }
       </div>
     )
   }
