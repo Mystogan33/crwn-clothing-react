@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: white;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
