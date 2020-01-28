@@ -1,33 +1,37 @@
-import React , { useEffect, useState } from 'react';
+import React , { useEffect } from 'react';
 import './header.styles.scss';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { CartIcon, CartDropdown } from '../index';
+import { toggleNavbar } from '../../redux/header/header.actions';
 
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden }}) => ({
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden }, header: { showNavbar }}) => ({
   currentUser,
-  hidden
+  hidden,
+  showNavbar
 });
 
-export const Header = connect(mapStateToProps)(
-  ({ currentUser, hidden }) => {
+const mapDispatchToProps = dispatch => ({
+  toggleNavbar: isScrolled => dispatch(toggleNavbar(isScrolled))
+});
 
-    const [isScrolled, setIsScrolled] = useState(false);
+export const Header = connect(mapStateToProps, mapDispatchToProps)(
+  ({ currentUser, hidden, showNavbar, toggleNavbar }) => {
 
     useEffect(() => {
-      document.addEventListener('scroll', () => {
-        const isTop = window.scrollY > 100;
-        if (isTop !== isScrolled) {
-          setIsScrolled(isTop);
+      window.addEventListener('scroll', () => {
+        const isTop = (window.scrollY > 75);
+        if(isTop !== showNavbar) {
+          toggleNavbar(isTop);
         }
       });
     });
 
     return (
-      <div className={`${isScrolled === true ? 'scrolled': '' } header`}>
+      <div className={`${showNavbar === true ? 'scrolled': '' } header`}>
         <Link className="logo-container" to="/">
           <Logo className="logo" />
         </Link>

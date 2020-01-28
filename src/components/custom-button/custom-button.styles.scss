@@ -1,3 +1,26 @@
+@mixin custom-button-default {
+  background-color: black;
+  color: white;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+}
+
+@mixin custom-button-inverted {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+}
+
 .custom-button {
   min-width: 165px;
   width: auto;
@@ -6,8 +29,6 @@
   line-height: 50px;
   padding: 0 35px 0 35px;
   font-size: 15px;
-  background-color: black;
-  color: white;
   text-transform: uppercase;
   font-family: 'Open Sans Condensed';
   font-weight: bolder;
@@ -15,11 +36,10 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  @include custom-button-default();
 
-  &:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
+  &.inverted {
+    @include custom-button-inverted();
   }
 
   &.google-sign-in {
@@ -28,18 +48,6 @@
 
     &:hover {
       background-color: #357ae8;
-      border: none;
-    }
-  }
-
-  &.inverted {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-
-    &:hover {
-      background-color: black;
-      color: white;
       border: none;
     }
   }
