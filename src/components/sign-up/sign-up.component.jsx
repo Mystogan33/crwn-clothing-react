@@ -21,7 +21,6 @@ export class SignUp extends React.Component {
 
     if(password !== confirmPassword) {
       alert("Password don't match !");
-      console.log("Password don't match !");
       return;
     }
 
