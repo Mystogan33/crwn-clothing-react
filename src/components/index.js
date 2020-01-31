@@ -10,5 +10,5 @@ export * from './sign-up/sign-up.component';
 export * from './cart-icon/cart-icon.component';
 export * from './cart-dropdown/cart-dropdown.component';
 export * from './cart-item/cart-item.component';
-export * from './checkout/checkout.component';
 export * from './checkout-item/checkout-item.component';
+export * from './collections-overview/collections-overview';
