@@ -1,17 +1,26 @@
 import React , { useEffect } from 'react';
-import './header.styles.scss';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/crown.svg';
+
 import { auth } from '../../firebase/firebase.utils';
+
 import { connect } from 'react-redux';
-import { CartIcon, CartDropdown } from '../index';
 import { toggleNavbar } from '../../redux/header/header.actions';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectHeaderShowNavbar } from '../../redux/header/header.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
+import { createStructuredSelector } from 'reselect';
+
+import { CartIcon, CartDropdown } from '../index';
+
+import './header.styles.scss';
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden }, header: { showNavbar }}) => ({
-  currentUser,
-  hidden,
-  showNavbar
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
+  showNavbar: selectHeaderShowNavbar
 });
 
 const mapDispatchToProps = dispatch => ({
