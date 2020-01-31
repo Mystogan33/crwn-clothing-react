@@ -10,11 +10,19 @@ const mapDispatchToProps = dispatch => ({
   toggleCartHidden: () => dispatch(toggleCartHidden())
 });
 
-export const CartIcon = connect(null, mapDispatchToProps)(
-  ({ toggleCartHidden }) => (
+const mapStateToProps = ({  cart: {cartItems} }) => ({
+  cartItems
+});
+
+const getQuantities = cartItems => (
+  cartItems.reduce((accumulator, currentItem) => accumulator + currentItem.quantity, 0)
+);
+
+export const CartIcon = connect(mapStateToProps, mapDispatchToProps)(
+  ({ toggleCartHidden, cartItems }) => (
     <div className="cart-icon" onClick={toggleCartHidden}>
       <ShoppingIcon className="shopping-icon"/>
-      <span className="item-count">0</span>
+      <span className="item-count">{getQuantities(cartItems)}</span>
     </div>
   )
 );
