@@ -1,9 +1,8 @@
-/* Used as starting data for Directory */
-
-const SECTIONS_DATA = [
+const INITIAL_STATE = {
+  sections: [
     {
         title: 'hats',
-        imageUrl: 'images/hats.png', // local file in public/images/
+        imageUrl: 'images/hats.png',
         id: 1,
         linkUrl: 'shop/hats'
     },
@@ -33,6 +32,14 @@ const SECTIONS_DATA = [
         id: 5,
         linkUrl: 'shop/mens'
     }
-];
+  ]
+};
 
-export default SECTIONS_DATA;
+const directoryReducer = (state = INITIAL_STATE, action) => {
+  switch(action.type) {
+    default:
+      return state;
+  }
+};
+
+export default directoryReducer;
