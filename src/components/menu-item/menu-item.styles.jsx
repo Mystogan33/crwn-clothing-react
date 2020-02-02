@@ -8,16 +8,18 @@ export const MenuItemContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid black;
 	margin: 0 7.5px 15px;
 	overflow: hidden;
+	border-radius: 0.3rem;
+	box-shadow: 0;
+	transition: box-shadow .4s ease-in-out;
 
 	&:hover {
 		cursor: pointer;
+		box-shadow: 0 1px 10px rgba(10, 10, 10, 0.7);
 
 		& .background-image {
 			transform: scale(1.1);
-			transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
 		}
 
 		& .content {
@@ -39,6 +41,8 @@ export const BackgroundImageContainer = styled.div`
   background-size: cover;
   background-position: center;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+	transition: transform 3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+
 `;
 
 export const ContentContainer = styled.div`

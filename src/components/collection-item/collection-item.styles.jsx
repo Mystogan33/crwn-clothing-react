@@ -37,6 +37,7 @@ const AddButton = styled(CustomButton)`
   margin-bottom: 5px;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   border-radius: 0.3rem;
+  transition: opacity .3s ease-in-out;
 `;
 
  const CollectionFooterContainer = styled.div`

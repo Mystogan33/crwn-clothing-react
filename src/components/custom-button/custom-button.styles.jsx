@@ -1,8 +1,14 @@
 import styled, { css } from 'styled-components';
 
+const defaultProperties = css`
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
+  border-radius: 0.2rem;
+`;
+
 const defaultButtonStyles = css`
   background-color: black;
   color: white;
+  ${defaultProperties}
 
   &:hover {
     background-color: white;
@@ -15,6 +21,7 @@ const invertedButtonStyles = css`
   background-color: white;
   color: black;
   border: 1px solid black;
+  ${defaultProperties}
 
   &:hover {
     background-color: black;
@@ -26,6 +33,7 @@ const invertedButtonStyles = css`
 const googleSignInStyles = css`
   background-color: #4285f4;
   color: white;
+  ${defaultProperties}
 
   &:hover {
     background-color: #357ae8;
