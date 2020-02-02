@@ -57,6 +57,7 @@ export const ContentContainer = styled.div`
   opacity: 0.7;
   position: absolute;
   border-radius: 0.2rem;
+	transition: opacity .3s ease-in-out;
 `;
 
 export const ContentTitle = styled.span`

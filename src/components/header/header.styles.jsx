@@ -38,6 +38,35 @@ const OptionLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    width: 0px;
+    height: 2px;
+    margin: 2px 0 0;
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+    background-color: black;
+  }
+  &:before {
+    left: 50%;
+  }
+  &:after {
+    right: 50%;
+  }
+
+  &:hover {
+    &:before,
+    &:after {
+      width: 50%;
+      opacity: 1;
+    }
+  }
 `;
 
 export {
