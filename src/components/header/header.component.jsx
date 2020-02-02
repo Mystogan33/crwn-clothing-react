@@ -1,5 +1,5 @@
 import React , { useEffect } from 'react';
-
+import { withRouter } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.utils';
 
 import { connect } from 'react-redux';
@@ -32,8 +32,8 @@ const mapDispatchToProps = dispatch => ({
   toggleNavbar: isScrolled => dispatch(toggleNavbar(isScrolled))
 });
 
-export const Header = connect(mapStateToProps, mapDispatchToProps)(
-  ({ currentUser, hidden, showNavbar, toggleNavbar }) => {
+export const Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(
+  ({ currentUser, hidden, showNavbar, toggleNavbar, history }) => {
 
     useEffect(() => {
       window.addEventListener('scroll', () => {
@@ -50,12 +50,12 @@ export const Header = connect(mapStateToProps, mapDispatchToProps)(
           <Logo className="logo" />
         </LogoContainer>
         <OptionsContainer>
-          <OptionLink to="/shop">SHOP</OptionLink>
-          <OptionLink to="/shop">CONTACT</OptionLink>
+          <OptionLink to="/shop" active={history}>SHOP</OptionLink>
+          <OptionLink to="/contact" active={history}>CONTACT</OptionLink>
           {
             currentUser ?
             <OptionLink as='div' onClick={ () => auth.signOut() }>SIGN OUT</OptionLink> :
-            <OptionLink to="/signIn">
+            <OptionLink to="/signIn" active={history}>
               SIGN IN
             </OptionLink>
           }
@@ -67,4 +67,4 @@ export const Header = connect(mapStateToProps, mapDispatchToProps)(
       </HeaderContainer>
     )
   }
-);
+));

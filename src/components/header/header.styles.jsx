@@ -1,5 +1,14 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+
+const hoverOrActiveLink = css`
+  color: grey;
+  &:before,
+  &:after {
+    width: 50%;
+    opacity: 1;
+  }
+`;
 
 // Components
 
@@ -34,6 +43,14 @@ const OptionsContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const isActive = props => {
+  if(props.to && (props.to === props.active.location.pathname)) {
+    return hoverOrActiveLink;
+  } else {
+    return '';
+  }
+};
+
 const OptionLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
@@ -60,12 +77,10 @@ const OptionLink = styled(Link)`
     right: 50%;
   }
 
+  ${isActive}
+
   &:hover {
-    &:before,
-    &:after {
-      width: 50%;
-      opacity: 1;
-    }
+    ${hoverOrActiveLink}
   }
 `;
 
