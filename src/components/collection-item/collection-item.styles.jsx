@@ -39,6 +39,7 @@ const AddButton = styled(CustomButton)`
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   border-radius: 0.3rem;
   transition: opacity .3s ease-in-out, box-shadow .4s ease-in-out;
+  box-shadow: 0 1px 5px rgba(10, 10, 10, 0.35);
 `;
 
  const CollectionFooterContainer = styled.div`

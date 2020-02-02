@@ -12,7 +12,8 @@ export const MenuItemContainer = styled.div`
 	overflow: hidden;
 	border-radius: 0.3rem;
 	box-shadow: 0;
-	transition: box-shadow .4s ease-in-out;
+	transition: all .4s ease-in-out;
+	box-shadow: 0 1px 5px rgba(10, 10, 10, 0.35);
 
 	&:hover {
 		cursor: pointer;

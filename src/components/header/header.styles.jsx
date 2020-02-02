@@ -44,6 +44,7 @@ const OptionsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  text-shadow: 1px 1px 2px pink;
 `;
 
 const isActive = props => {
