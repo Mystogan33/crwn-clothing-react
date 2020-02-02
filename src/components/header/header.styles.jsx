@@ -18,14 +18,17 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  padding: 0 40px;
+  transition: all .5s ease-in-out, box-shadow 0s;
 
   &.scrolled {
+    padding: 0 20px;
     position: sticky;
     top: 0;
     opacity: 0.96;
     background-color: white;
     z-index: 1;
-    transition: .75s ease-in-out;
+    box-shadow: 0px 7px 24px 4px rgba(0,0,0,0.2);
   }
 `;
 

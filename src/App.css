@@ -6,7 +6,11 @@ body {
   background-color: white;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
   font-family: 'Open Sans Condensed', sans-serif;
-  padding: 20px 60px;
+  padding: 20px 0;
+}
+
+.content-container {
+  padding: 0 40px;
 }
 
 a {

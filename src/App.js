@@ -12,9 +12,10 @@ import {
 } from './firebase/firebase.utils';
 
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { createStructuredSelector } from 'reselect';
 
 import { Header } from './components';
 import {
@@ -42,7 +43,8 @@ class App extends React.Component {
           });
         });
       }
-      else setCurrentUser(userAuth);
+
+      setCurrentUser(userAuth);
     });
   }
 
@@ -55,17 +57,19 @@ class App extends React.Component {
       <div className="App">
         <Header></Header>
         <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
-          <Route exact path='/signIn' render={() => this.props.currentUser ?
-            (
-              <Redirect to='/' />
-            ) :
-            (
-              <SignInAndSignUpPage />
-            )
-          } />
+          <div className="content-container">
+            <Route exact path='/' component={HomePage} />
+            <Route path='/shop' component={ShopPage} />
+            <Route exact path='/checkout' component={CheckoutPage} />
+            <Route exact path='/signIn' render={() => this.props.currentUser ?
+              (
+                <Redirect to='/' />
+              ) :
+              (
+                <SignInAndSignUpPage />
+              )
+            } />
+          </div>
         </Switch>
       </div>
     );
