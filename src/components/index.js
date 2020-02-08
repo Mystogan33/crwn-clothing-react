@@ -12,5 +12,6 @@ export * from './cart-dropdown/cart-dropdown.component';
 export * from './cart-item/cart-item.component';
 export * from './checkout-item/checkout-item.component';
 export * from './collections-overview/collections-overview.component';
+export * from './collections-overview/collections-overview.container';
 export * from './stripe-button/stripe-button.component';
 export * from './with-spinner/with-spinner.component';

@@ -8,6 +8,7 @@ const CollectionItemContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  transition: all 0.5s ease-in-out;
 
   &:hover {
     .image {
@@ -36,9 +37,9 @@ const AddButton = styled(CustomButton)`
   background-size: cover;
   background-position: center;
   margin-bottom: 5px;
-  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   border-radius: 0.3rem;
-  transition: opacity .3s ease-in-out, box-shadow .4s ease-in-out;
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
+  transition: all .3s ease-in-out;
   box-shadow: 0 1px 5px rgba(10, 10, 10, 0.35);
 `;
 
