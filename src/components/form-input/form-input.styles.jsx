@@ -18,6 +18,12 @@ const GroupContainer = styled.div`
   }
 `;
 
+const hasValue = props => {
+  if(props.value) {
+    return shrinkLabelStyles;
+  }
+};
+
 const FormInputContainer = styled.input`
   background: transparent;
   color: ${subColor};
@@ -29,6 +35,10 @@ const FormInputContainer = styled.input`
   border-radius: 0;
   border-bottom: 1px solid ${subColor};
   margin: 25px 0;
+
+  & ~ label {
+    ${hasValue}
+  }
 
   &:focus {
     outline: none;

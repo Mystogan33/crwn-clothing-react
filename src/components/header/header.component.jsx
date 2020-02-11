@@ -2,7 +2,6 @@ import React , { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { auth } from '../../firebase/firebase.utils';
 import { createStructuredSelector } from 'reselect';
 
 import { toggleNavbar } from '../../redux/header/header.actions';
