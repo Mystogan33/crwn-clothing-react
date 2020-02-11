@@ -1,19 +1,21 @@
 import React , { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.utils';
+import { createStructuredSelector } from 'reselect';
 
-import { connect } from 'react-redux';
 import { toggleNavbar } from '../../redux/header/header.actions';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectHeaderShowNavbar } from '../../redux/header/header.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-
-import { createStructuredSelector } from 'reselect';
+import { signOutStart } from '../../redux/user/user.actions';
 
 import { CartIcon } from '../cart-icon/cart-icon.component';
 import { CartDropdown } from '../cart-dropdown/cart-dropdown.component';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+
 import {
   HeaderContainer,
   LogoContainer,
@@ -29,11 +31,11 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleNavbar: isScrolled => dispatch(toggleNavbar(isScrolled))
+  toggleNavbar: isScrolled => dispatch(toggleNavbar(isScrolled)),
+  signOutStart: () => dispatch(signOutStart())
 });
 
-export const Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(
-  ({ currentUser, hidden, showNavbar, toggleNavbar, history }) => {
+export const HeaderComponent = ({ currentUser, hidden, showNavbar, toggleNavbar, history, signOutStart }) => {
 
     useEffect(() => {
       window.addEventListener('scroll', () => {
@@ -52,12 +54,9 @@ export const Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(
         <OptionsContainer>
           <OptionLink to="/shop" active={history}>SHOP</OptionLink>
           <OptionLink to="/contact" active={history}>CONTACT</OptionLink>
-          {
-            currentUser ?
-            <OptionLink as='div' onClick={ () => auth.signOut() }>SIGN OUT</OptionLink> :
-            <OptionLink to="/signIn" active={history}>
-              SIGN IN
-            </OptionLink>
+          { currentUser
+            ? <OptionLink as='div' onClick={signOutStart}> SIGN OUT </OptionLink>
+            : <OptionLink to="/signIn" active={history}> SIGN IN </OptionLink>
           }
           <CartIcon />
         </OptionsContainer>
@@ -66,5 +65,9 @@ export const Header = withRouter(connect(mapStateToProps, mapDispatchToProps)(
         }
       </HeaderContainer>
     )
-  }
-));
+};
+
+export const Header = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(HeaderComponent);

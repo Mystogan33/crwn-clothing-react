@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { FormInput } from '../form-input/form-input.component';
 import { CustomButton } from '../custom-button/custom-button.component';
 
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actions';
 
 import {
   SignInContainer,
@@ -12,7 +13,7 @@ import {
   SignInForm
 } from './sign-in.styles';
 
-export class SignIn extends React.Component {
+export class SignInComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,16 +25,10 @@ export class SignIn extends React.Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-
+    const { emailSignInStart } = this.props;
     const { email, password } = this.state;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: '', password: '' });
-
-    } catch (e) {
-      console.error(e);
-    }
+    emailSignInStart(email, password);
   };
 
   handleChange = event => {
@@ -42,6 +37,7 @@ export class SignIn extends React.Component {
   };
 
   render() {
+    const { googleSignInStart } = this.props;
     return (
       <SignInContainer>
         <SignInTitle>I already have an account</SignInTitle>
@@ -66,7 +62,8 @@ export class SignIn extends React.Component {
           <ButtonsBarContainer>
             <CustomButton type="submit">Sign In</CustomButton>
             <CustomButton
-              onClick={signInWithGoogle}
+              type="button"
+              onClick={googleSignInStart}
               isGoogleSignIn>
               Sign In with Google
             </CustomButton>
@@ -75,4 +72,11 @@ export class SignIn extends React.Component {
       </SignInContainer>
     )
   }
-}
+};
+
+const mapDispatchToProps = dispatch => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
+});
+
+export const SignIn = connect(null, mapDispatchToProps)(SignInComponent);
