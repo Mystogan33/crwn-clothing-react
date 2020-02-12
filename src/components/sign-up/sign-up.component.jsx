@@ -13,16 +13,24 @@ import {
 } from './sign-up.styles';
 
 
-export const SignUpComponent = props => {
+export const SignUpComponent = ({ signUpStart }) => {
 
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword]= useState('');
+  const [userCredentials, setCredentials] = useState({
+    displayName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const { displayName, email, password, confirmPassword } = userCredentials;
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setCredentials({ ...userCredentials, [name]: value});
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const { signUpStart } = props;
 
     if(password !== confirmPassword) {
       alert("Password don't match !");
@@ -41,28 +49,28 @@ export const SignUpComponent = props => {
           type="text"
           name="displayName"
           value={displayName}
-          onChange={(event) => setDisplayName(event.target.value)}
+          onChange={handleChange}
           label='Display Name'
         />
         <FormInput
           type="email"
           name="email"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={handleChange}
           label='Email'
         />
         <FormInput
           type="password"
           name="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={handleChange}
           label='Password'
         />
         <FormInput
           type="password"
           name="confirmPassword"
           value={confirmPassword}
-          onChange={(event) => setConfirmPassword(event.target.value)}
+          onChange={handleChange}
           label='Confirm Password'
         />
       <CustomButton type="submit">SIGN UP</CustomButton>

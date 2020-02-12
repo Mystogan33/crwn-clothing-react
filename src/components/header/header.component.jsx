@@ -25,7 +25,6 @@ export const HeaderComponent = ({ currentUser, hidden, history, signOutStart }) 
   const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
-
     const scrollListener = (event) => {
       if(window.scrollY <= 75 && showNavbar === true) {
         setShowNavbar(false);

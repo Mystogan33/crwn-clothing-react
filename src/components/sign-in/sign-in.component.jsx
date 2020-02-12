@@ -13,18 +13,21 @@ import {
   SignInForm
 } from './sign-in.styles';
 
-export const SignInComponent = props => {
+export const SignInComponent = ({ emailSignInStart, googleSignInStart }) => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userCredentials, setCredentials] = useState({email: '', password: ''});
+  const { email, password } = userCredentials;
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const { emailSignInStart } = props;
     emailSignInStart(email, password);
   };
 
-  const { googleSignInStart } = props;
+  const handleChange = event => {
+    const { value, name } = event.target;
+    setCredentials({ ...userCredentials, [name]: value});
+  }
+
   return (
     <SignInContainer>
       <SignInTitle>I already have an account</SignInTitle>
@@ -34,14 +37,14 @@ export const SignInComponent = props => {
         <FormInput
           name="email"
           type="email"
-          handleChange={event => setEmail(event.target.value)}
+          handleChange={handleChange}
           value={email}
           label="Email"
           required />
         <FormInput
           name="password"
           type="password"
-          handleChange={event => setPassword(event.target.value)}
+          handleChange={handleChange}
           value={password}
           label="Password"
           required />
