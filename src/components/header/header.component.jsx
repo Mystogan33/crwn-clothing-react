@@ -1,12 +1,10 @@
-import React , { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
-import { toggleNavbar } from '../../redux/header/header.actions';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
-import { selectHeaderShowNavbar } from '../../redux/header/header.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
 
@@ -22,28 +20,23 @@ import {
   OptionLink
 } from './header.styles';
 
+export const HeaderComponent = ({ currentUser, hidden, history, signOutStart }) => {
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  hidden: selectCartHidden,
-  showNavbar: selectHeaderShowNavbar
-});
+  const [showNavbar, setShowNavbar] = useState(false);
 
-const mapDispatchToProps = dispatch => ({
-  toggleNavbar: isScrolled => dispatch(toggleNavbar(isScrolled)),
-  signOutStart: () => dispatch(signOutStart())
-});
+  useEffect(() => {
 
-export const HeaderComponent = ({ currentUser, hidden, showNavbar, toggleNavbar, history, signOutStart }) => {
+    const scrollListener = (event) => {
+      if(window.scrollY <= 75 && showNavbar === true) {
+        setShowNavbar(false);
+      } else if(window.scrollY > 75 && showNavbar === false) {
+        setShowNavbar(true);
+      }
+    };
 
-    useEffect(() => {
-      window.addEventListener('scroll', () => {
-        const isTop = (window.scrollY > 75);
-        if(isTop !== showNavbar) {
-          toggleNavbar(isTop);
-        }
-      });
-    });
+    window.addEventListener('scroll', scrollListener);
+    return () => window.removeEventListener('scroll', scrollListener);
+  });
 
     return (
       <HeaderContainer className={`${showNavbar === true ? 'scrolled': '' }`}>
@@ -65,6 +58,15 @@ export const HeaderComponent = ({ currentUser, hidden, showNavbar, toggleNavbar,
       </HeaderContainer>
     )
 };
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
+});
+
+const mapDispatchToProps = dispatch => ({
+  signOutStart: () => dispatch(signOutStart())
+});
 
 export const Header = compose(
   withRouter,
