@@ -20,7 +20,11 @@ import {
   OptionLink
 } from './header.styles';
 
-export const HeaderComponent = ({ currentUser, hidden, history, signOutStart }) => {
+export const HeaderComponent = ({
+  currentUser,
+  hidden,
+  location: { pathname },
+  signOutStart }) => {
 
   const [showNavbar, setShowNavbar] = useState(false);
 
@@ -43,11 +47,11 @@ export const HeaderComponent = ({ currentUser, hidden, history, signOutStart }) 
           <Logo className="logo" />
         </LogoContainer>
         <OptionsContainer>
-          <OptionLink to="/shop" active={history}>SHOP</OptionLink>
-          <OptionLink to="/contact" active={history}>CONTACT</OptionLink>
+          <OptionLink to="/shop" active={pathname}>SHOP</OptionLink>
+          <OptionLink to="/contact" active={pathname}>CONTACT</OptionLink>
           { currentUser
             ? <OptionLink as='div' onClick={signOutStart}> SIGN OUT </OptionLink>
-            : <OptionLink to="/signIn" active={history}> SIGN IN </OptionLink>
+            : <OptionLink to="/signIn" active={pathname}> SIGN IN </OptionLink>
           }
           <CartIcon />
         </OptionsContainer>
