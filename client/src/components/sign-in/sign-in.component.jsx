@@ -47,7 +47,8 @@ export const SignInComponent = ({ emailSignInStart, googleSignInStart }) => {
           handleChange={handleChange}
           value={password}
           label="Password"
-          required />
+          required
+          autoComplete="current-password" />
 
         <ButtonsBarContainer>
           <CustomButton type="submit">Sign In</CustomButton>

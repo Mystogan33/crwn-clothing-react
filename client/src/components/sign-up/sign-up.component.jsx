@@ -64,6 +64,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           value={password}
           onChange={handleChange}
           label='Password'
+          autoComplete="new-password"
         />
         <FormInput
           type="password"
@@ -71,6 +72,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           value={confirmPassword}
           onChange={handleChange}
           label='Confirm Password'
+          autoComplete="off"
         />
       <CustomButton type="submit">SIGN UP</CustomButton>
       </SignUpForm>
