@@ -18,10 +18,8 @@ const GroupContainer = styled.div`
   }
 `;
 
-const hasValue = props => {
-  if(props.value) {
-    return shrinkLabelStyles;
-  }
+const hasValue = ({ value }) => {
+  if(value) return shrinkLabelStyles;
 };
 
 const FormInputContainer = styled.input`

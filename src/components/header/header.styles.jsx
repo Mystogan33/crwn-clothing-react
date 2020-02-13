@@ -47,12 +47,9 @@ const OptionsContainer = styled.div`
   text-shadow: 1px 1px 2px pink;
 `;
 
-const isActive = props => {
-  if(props.to && (props.to === props.active.location.pathname)) {
+const isActive = ({ to, active: { location: { pathname } } }) => {
+  if(to && (to === pathname))
     return hoverOrActiveLink;
-  } else {
-    return '';
-  }
 };
 
 const OptionLink = styled(Link)`

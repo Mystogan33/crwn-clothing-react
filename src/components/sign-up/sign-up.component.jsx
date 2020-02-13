@@ -12,7 +12,6 @@ import {
   SignUpForm
 } from './sign-up.styles';
 
-
 export const SignUpComponent = ({ signUpStart }) => {
 
   const [userCredentials, setCredentials] = useState({

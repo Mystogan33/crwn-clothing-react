@@ -41,12 +41,9 @@ const googleSignInStyles = css`
   }
 `;
 
-const getButtonStyles = props => {
-  if(props.isGoogleSignIn) {
-    return googleSignInStyles;
-  }
-
-  return props.inverted ? invertedButtonStyles : defaultButtonStyles;
+const getButtonStyles = ({isGoogleSignIn, inverted}) => {
+  if(isGoogleSignIn) return googleSignInStyles;
+  return inverted ? invertedButtonStyles : defaultButtonStyles;
 };
 
 

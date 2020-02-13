@@ -23,9 +23,7 @@ import {
 
 import './App.css';
 
-
-const App = props => {
-  const { checkUserSession, currentUser } = props;
+const App = ({ checkUserSession, currentUser }) => {
 
   useEffect(() => {
     checkUserSession();
