@@ -40,7 +40,8 @@ export const SignInComponent = ({ emailSignInStart, googleSignInStart }) => {
           handleChange={handleChange}
           value={email}
           label="Email"
-          required />
+          required
+          autoComplete="email" />
         <FormInput
           name="password"
           type="password"

@@ -50,6 +50,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           value={displayName}
           onChange={handleChange}
           label='Display Name'
+          autoComplete="username"
         />
         <FormInput
           type="email"
@@ -57,6 +58,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           value={email}
           onChange={handleChange}
           label='Email'
+          autoComplete="email"
         />
         <FormInput
           type="password"
