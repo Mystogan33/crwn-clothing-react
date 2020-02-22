@@ -8,7 +8,7 @@ const CollectionItemContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
-  transition: all 0.5s ease-in-out;
+  transition: opacity .5s ease-in-out, box-shadow .4 ease-in-out;
 
   &:hover {
     .image {
@@ -20,6 +20,16 @@ const CollectionItemContainer = styled.div`
       display: flex;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    width: 40vw;
+
+    &:hover {
+      .image, button {
+        opacity: unset;
+      }
+    }
+  }
 `;
 
 const AddButton = styled(CustomButton)`
@@ -29,6 +39,13 @@ const AddButton = styled(CustomButton)`
   top: 255px;
   display: none;
   border-radius: 0.2rem;
+
+  @media screen and (max-width: 800px) {
+    display: block;
+    opacity: 0.85;
+    min-width: unset;
+    padding: 0 10px;
+  }
 `;
 
  const BackgroundImage = styled.div`

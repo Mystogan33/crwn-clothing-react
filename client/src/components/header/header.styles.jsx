@@ -30,12 +30,15 @@ const HeaderContainer = styled.div`
     z-index: 1;
     box-shadow: 0px 7px 24px 4px rgba(0,0,0,0.2);
   }
+
+  @media screen and (max-width: 800px) {
+    padding: 0 20px !important;
+  }
 `;
 
 const LogoContainer = styled(Link)`
   height: 100%;
-  width: 70px;
-  padding: 18px 25px;
+  padding: 14px 5px;
 `;
 
 const OptionsContainer = styled.div`
@@ -45,6 +48,10 @@ const OptionsContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   text-shadow: 1px 1px 2px pink;
+
+  @media screen and (max-width: 800px) {
+    width: 80%;
+  }
 `;
 
 const isActive = ({ to, active }) => {

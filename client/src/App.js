@@ -6,6 +6,8 @@ import {
   Redirect
 } from 'react-router-dom';
 
+import { GlobalStyle } from './global.styles';
+
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -21,8 +23,6 @@ import {
   CheckoutPage
 } from './pages';
 
-import './App.css';
-
 const App = ({ checkUserSession, currentUser }) => {
 
   useEffect(() => {
@@ -31,20 +31,21 @@ const App = ({ checkUserSession, currentUser }) => {
 
   return (
     <div className="App">
+      <GlobalStyle />
       <Header></Header>
       <div className="content-container">
         <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/shop' component={ShopPage} />
-            <Route exact path='/checkout' component={CheckoutPage} />
-            <Route exact path='/signIn' render={
-              () => currentUser ?
-                (
-                  <Redirect to='/' />
-                ) :
-                (
-                  <SignInAndSignUpPage />
-                )
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path='/signIn' render={
+            () => currentUser ?
+              (
+                <Redirect to='/' />
+              ) :
+              (
+                <SignInAndSignUpPage />
+              )
             } />
         </Switch>
       </div>
