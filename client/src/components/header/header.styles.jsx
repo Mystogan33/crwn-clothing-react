@@ -32,7 +32,7 @@ const HeaderContainer = styled.div`
   }
 
   @media screen and (max-width: 800px) {
-    padding: 0 20px !important;
+    padding: 0 20px;
   }
 `;
 

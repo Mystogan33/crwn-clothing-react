@@ -35,7 +35,7 @@ export const MenuItemContainer = styled.div`
   }
 
 	@media screen and (max-width: 800px) {
-		height: 200px !important;
+		height: 200px;
 	}
 `;
 
@@ -46,7 +46,6 @@ export const BackgroundImageContainer = styled.div`
   background-position: center;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 	transition: transform 3s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-
 `;
 
 export const ContentContainer = styled.div`

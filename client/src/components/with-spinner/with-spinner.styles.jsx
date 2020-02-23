@@ -17,6 +17,7 @@ const SpinnerContainer = styled.div`
   border-top-color: #636767;
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
+  
   @keyframes spin {
     to {
       -webkit-transform: rotate(360deg);

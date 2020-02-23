@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react';
-
-import {
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
-
-import { GlobalStyle } from './global.styles';
-
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -15,13 +7,9 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
 import { Header } from './components';
+import { HomePage, ShopPage, SignInAndSignUpPage, CheckoutPage } from './pages';
 
-import {
-  HomePage,
-  ShopPage,
-  SignInAndSignUpPage,
-  CheckoutPage
-} from './pages';
+import { GlobalStyle } from './global.styles';
 
 const App = ({ checkUserSession, currentUser }) => {
 
@@ -32,21 +20,17 @@ const App = ({ checkUserSession, currentUser }) => {
   return (
     <div className="App">
       <GlobalStyle />
-      <Header></Header>
+      <Header />
       <div className="content-container">
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
           <Route exact path='/checkout' component={CheckoutPage} />
-          <Route exact path='/signIn' render={
-            () => currentUser ?
-              (
-                <Redirect to='/' />
-              ) :
-              (
-                <SignInAndSignUpPage />
-              )
-            } />
+          <Route exact path='/signIn' render={() => currentUser
+              ? <Redirect to='/' />
+              : <SignInAndSignUpPage />
+            }
+          />
         </Switch>
       </div>
     </div>

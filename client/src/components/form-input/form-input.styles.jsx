@@ -23,7 +23,7 @@ const hasValue = ({ value }) => {
 };
 
 const FormInputContainer = styled.input`
-  background: transparent;
+  background: white;
   color: ${subColor};
   font-size: 18px;
   padding: 10px 10px 10px 5px;
