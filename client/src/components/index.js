@@ -15,3 +15,5 @@ export * from './collections-overview/collections-overview.component';
 export * from './collections-overview/collections-overview.container';
 export * from './stripe-button/stripe-button.component';
 export * from './with-spinner/with-spinner.component';
+export * from './spinner/spinner.component';
+export * from './error-boundary/error-boundary.component';

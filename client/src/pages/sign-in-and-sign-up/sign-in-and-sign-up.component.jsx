@@ -10,3 +10,5 @@ export const SignInAndSignUpPage = () => (
     <SignUp />
   </SignInAndSignUpContainer>
 );
+
+export default SignInAndSignUpPage;

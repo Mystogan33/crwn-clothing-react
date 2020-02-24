@@ -13,7 +13,7 @@ const CollectionPreviewContainer = styled.div`
 
 const TitleContainer = styled(Link)`
   font-size: 28px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   cursor: pointer;
 
   &:hover {

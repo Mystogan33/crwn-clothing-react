@@ -14,3 +14,5 @@ export const CollectionsOverviewContainer = compose(
   connect(mapStateToProps),
   WithSpinner,
 )(CollectionsOverview);
+
+export default CollectionsOverviewContainer;
