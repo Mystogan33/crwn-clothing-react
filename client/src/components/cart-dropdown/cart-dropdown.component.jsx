@@ -15,21 +15,22 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-const CartDropdownCmp = ({ cartItems, toggleCartHidden, history }) => (
-  <CartDropdownContainer>
-    <CartItemsContainer>
-      {
-        cartItems.length
-        ? cartItems.map(item => <CartItem key={item.id} item={item} />)
-        : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
-      }
-    </CartItemsContainer>
-    <CartDropdownButton
-      onClick={() => {
-        toggleCartHidden();
-        history.push('/checkout');
-      }}>GO TO CHECKOUT</CartDropdownButton>
-  </CartDropdownContainer>
+const CartDropdownCmp = React.memo(
+  ({ cartItems, toggleCartHidden, history }) => (
+      <CartDropdownContainer>
+        <CartItemsContainer>
+          { cartItems.length
+            ? cartItems.map(item => <CartItem key={item.id} item={item} />)
+            : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
+          }
+        </CartItemsContainer>
+        <CartDropdownButton
+          onClick={() => {
+            toggleCartHidden();
+            history.push('/checkout');
+          }}>GO TO CHECKOUT</CartDropdownButton>
+      </CartDropdownContainer>
+  )
 );
 
 

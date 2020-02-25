@@ -3,7 +3,8 @@ const
   cors = require('cors'),
   bodyParser = require('body-parser'),
   path = require('path'),
-  compression = require('compression');
+  compression = require('compression'),
+  enforce = require('express-sslify');
 
 if(process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -16,12 +17,19 @@ const
 app.use([
   bodyParser.json(),
   bodyParser.urlencoded({ extended: true }),
-  cors(),
-  compression()
+  cors()
 ]);
 
 if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use([
+    compression(),
+    enforce.HTTPS({ trustProtoHeader: true }),
+    express.static(path.join(__dirname, 'client/build'))
+  ]);
+
+  app.get('/service-worker.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build', 'service-worker.js'));
+  });
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
