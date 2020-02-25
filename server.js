@@ -2,7 +2,8 @@ const
   express = require('express'),
   cors = require('cors'),
   bodyParser = require('body-parser'),
-  path = require('path');
+  path = require('path'),
+  compression = require('compression');
 
 if(process.env.NODE_ENV !== 'production') require('dotenv').config();
 
@@ -15,7 +16,8 @@ const
 app.use([
   bodyParser.json(),
   bodyParser.urlencoded({ extended: true }),
-  cors()
+  cors(),
+  compression()
 ]);
 
 if(process.env.NODE_ENV === 'production') {
