@@ -9,11 +9,12 @@
     "client:start": "cd client && npm start",
     "client:install": "cd client && npm install",
     "client:build": "cd client && npm run build",
-    "server:start": "node server.js",
-    "server:start:watch": "nodemon server.js",
-    "server:install": "npm install",
-    "dev": "concurrently --kill-others-on-fail \"npm run server:start:watch\" \"npm run client:start\"",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "client:test": "cd client && npm run test",
+    "start": "node server.js",
+    "start:watch": "nodemon server.js",
+    "install": "npm install",
+    "dev": "concurrently --kill-others-on-fail \"npm run start:watch\" \"npm run client:start\"",
+    "heroku-postbuild": "npm run client:install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

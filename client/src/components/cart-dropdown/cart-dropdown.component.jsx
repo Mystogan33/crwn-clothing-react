@@ -15,24 +15,21 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-const CartDropdownCmp = React.memo(
-  ({ cartItems, toggleCartHidden, history }) => (
-      <CartDropdownContainer>
-        <CartItemsContainer>
-          { cartItems.length
-            ? cartItems.map(item => <CartItem key={item.id} item={item} />)
-            : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
-          }
-        </CartItemsContainer>
-        <CartDropdownButton
-          onClick={() => {
-            toggleCartHidden();
-            history.push('/checkout');
-          }}>GO TO CHECKOUT</CartDropdownButton>
-      </CartDropdownContainer>
-  )
+const CartDropdownCmp = ({ cartItems, toggleCartHidden, history }) => (
+  <CartDropdownContainer>
+    <CartItemsContainer>
+      { cartItems.length
+        ? cartItems.map(item => <CartItem key={item.id} item={item} />)
+        : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
+      }
+    </CartItemsContainer>
+    <CartDropdownButton
+      onClick={() => {
+        toggleCartHidden();
+        history.push('/checkout');
+      }}>GO TO CHECKOUT</CartDropdownButton>
+  </CartDropdownContainer>
 );
-
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems
@@ -41,7 +38,6 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   toggleCartHidden: () => dispatch(toggleCartHidden())
 });
-
 
 export const CartDropdown = compose(
   withRouter,
