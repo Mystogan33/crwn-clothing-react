@@ -1,4 +1,3 @@
-import UserActionTypes from './user.types';
 import * as UserActions from './user.actions';
 import userReducer from './user.reducer';
 
