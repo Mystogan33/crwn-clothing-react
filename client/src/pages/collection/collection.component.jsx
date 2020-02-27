@@ -8,10 +8,6 @@ import {
   CollectionItemsContainer
 } from './collection.styles';
 
-// const mapStateToProps = (state, { match: { params: { collectionId } } }) => ({
-//   collection: selectCollection(collectionId)(state)
-// });
-
 export const CollectionPage = ({ collection }) => {
   const { title, items } = collection;
   return (
