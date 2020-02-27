@@ -26,9 +26,17 @@ export function* updateCartInFirebase() {
 };
 
 export function* checkCartFromFirebase({ payload: user }) {
-  const cartRef = yield getUserCartRef(user.id);
-  const cartSnapshot = yield cartRef.get();
-  yield put(setCartFromFirebase(cartSnapshot.data().cartItems));
+  try {
+    const cartRef = yield getUserCartRef(user.id);
+    if(!cartRef) {
+      yield put(setCartFromFirebase([]));
+      return;
+    }
+    const cartSnapshot = yield cartRef.get();
+    yield put(setCartFromFirebase(cartSnapshot.data().cartItems));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export function* onSignOutSuccess() {
