@@ -8,16 +8,17 @@ const initialState = {
 };
 
 describe('shopReducer', () => {
+  
   it('should return initial state', () => {
     expect(shopReducer(undefined, {})).toEqual(initialState);
   });
 
-  it('should set isFetching to true when fetchCollectionsStart', () => {
+  it('should set isFetching to true when fetchCollectionsStart action', () => {
     expect(shopReducer(initialState, ShopActions.fetchCollectionsStart()).isFetching).toBe(true);
   });
 
-  it('should set collections when fetchCollectionsSuccess', () => {
-    const collections = [
+  it('should set isFetching to false and set collections when fetchCollectionsSuccess action', () => {
+    const mockCollections = [
       {
         id: 1,
         imageUrl: "https://i.ibb.co/xJS0T3Y/camo-vest.png",
@@ -26,16 +27,21 @@ describe('shopReducer', () => {
       }
     ];
 
-    expect(shopReducer(initialState, ShopActions.fetchCollectionsSuccess(collections)).collections).toBe(collections);
+    expect(shopReducer(initialState, ShopActions.fetchCollectionsSuccess(mockCollections)))
+      .toEqual({
+        ...initialState,
+        isFetching: false,
+        collections: mockCollections
+      });
   });
 
-  it('should set error when fetchCollectionsFailure', () => {
-    const error = { errorMessage: 'Errored', code: 404 };
-    expect(shopReducer(initialState, ShopActions.fetchCollectionsFailure(error)).errorMessage).toBe(error);
+  it('should set isFetching to false and set error when fetchCollectionsFailure', () => {
+    expect(shopReducer(initialState, ShopActions.fetchCollectionsFailure('error')))
+    .toEqual({
+      ...initialState,
+      isFetching: false,
+      errorMessage: 'error'
+    });
   });
 
-  it('should set isFetching to false when fetchCollectionsSuccess or fetchCollectionsFailure', () => {
-    expect(shopReducer(initialState, ShopActions.fetchCollectionsSuccess([])).isFetching).toBe(false);
-    expect(shopReducer(initialState, ShopActions.fetchCollectionsFailure({})).isFetching).toBe(false);
-  });
 });

@@ -7,3 +7,5 @@ export const CartActionTypes = {
   SET_CART_FROM_FIREBASE: 'SET_CART_FROM_FIREBASE',
   UPDATE_CART_IN_FIREBASE: 'UPDATE_CART_IN_FIREBASE'
 };
+
+export default CartActionTypes;
