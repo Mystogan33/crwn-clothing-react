@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
-import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
-
 import { CheckoutItem, StripeCheckoutButton } from '../../components';
+import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
 import {
   CheckoutPageContainer,
@@ -14,7 +12,7 @@ import {
   WarningContainer
 } from './checkout.styles';
 
-const CheckoutPage = ({ cartItems, total }) => (
+export const CheckoutPage = ({ cartItems, total }) => (
  <CheckoutPageContainer>
   <CheckoutHeaderContainer>
     <HeaderBlockContainer>
@@ -43,7 +41,7 @@ const CheckoutPage = ({ cartItems, total }) => (
     <br />
     Card Number: 4242 4242 4242 4242 - CVC: 123 - Date: 10/2032
   </WarningContainer>
-  <StripeCheckoutButton  price={total} />
+  <StripeCheckoutButton price={total} />
  </CheckoutPageContainer>
 );
 

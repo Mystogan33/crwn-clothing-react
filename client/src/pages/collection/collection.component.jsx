@@ -22,3 +22,5 @@ export const CollectionPage = ({ collection }) => {
     </CollectionPageContainer>
   )
 };
+
+export default CollectionPage;
