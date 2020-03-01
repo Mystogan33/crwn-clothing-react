@@ -50,8 +50,8 @@ export const HeaderComponent = ({
           <OptionLink to="/shop" active={pathname}>SHOP</OptionLink>
           <OptionLink to="/contact" active={pathname}>CONTACT</OptionLink>
           { currentUser
-            ? <OptionLink as='div' onClick={signOutStart}> SIGN OUT </OptionLink>
-            : <OptionLink to="/signIn" active={pathname}> SIGN IN </OptionLink>
+            ? <OptionLink as='div' onClick={signOutStart}>SIGN OUT</OptionLink>
+            : <OptionLink to="/signIn" active={pathname}>SIGN IN</OptionLink>
           }
           <CartIcon />
         </OptionsContainer>

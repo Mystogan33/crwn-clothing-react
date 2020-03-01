@@ -10,31 +10,31 @@ import {
   RemoveButtonContainer
 } from './checkout-item.styles';
 
+export const CheckoutItemComponent = ({ cartItem, clearItemFromCart, addItem, removeItem }) => {
+  const { name, imageUrl, price, quantity } = cartItem;
+  return (
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <img src={imageUrl} alt="Item"/>
+      </ImageContainer>
+      <TextContainer>{name}</TextContainer>
+      <QuantityContainer>
+        <div className="arrow" onClick={() => removeItem(cartItem)}>&#10094;</div>
+        <span>{quantity}</span>
+        <div className="arrow" onClick={() => addItem(cartItem)}>&#10095;</div>
+      </QuantityContainer>
+      <TextContainer>{price}</TextContainer>
+      <RemoveButtonContainer onClick={() => clearItemFromCart(cartItem)}>
+        &#10005;
+      </RemoveButtonContainer>
+  </CheckoutItemContainer>
+  )
+};
+
 const mapDispatchToProps = dispatch => ({
   clearItemFromCart: itemToRemove => dispatch(clearItemFromCart(itemToRemove)),
   addItem: itemToAdd => dispatch(addItem(itemToAdd)),
   removeItem: itemToRemove => dispatch(removeItemFromCart(itemToRemove))
 });
 
-export const CheckoutItem = connect(null, mapDispatchToProps)(
-  ({ cartItem, clearItemFromCart, addItem, removeItem }) => {
-    const { name, imageUrl, price, quantity } = cartItem;
-    return (
-      <CheckoutItemContainer>
-        <ImageContainer>
-          <img src={imageUrl} alt="Item"/>
-        </ImageContainer>
-        <TextContainer>{name}</TextContainer>
-        <QuantityContainer>
-          <div className="arrow" onClick={() => removeItem(cartItem)}>&#10094;</div>
-          <span>{quantity}</span>
-          <div className="arrow" onClick={() => addItem(cartItem)}>&#10095;</div>
-        </QuantityContainer>
-        <TextContainer>{price}</TextContainer>
-        <RemoveButtonContainer onClick={() => clearItemFromCart(cartItem)}>
-          &#10005;
-        </RemoveButtonContainer>
-    </CheckoutItemContainer>
-    )
-  }
-);
+export const CheckoutItem = connect(null, mapDispatchToProps)(CheckoutItemComponent);

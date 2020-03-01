@@ -15,7 +15,7 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-const CartDropdownCmp = ({ cartItems, toggleCartHidden, history }) => (
+export const CartDropdownCmp = ({ cartItems, dispatch , history }) => (
   <CartDropdownContainer>
     <CartItemsContainer>
       { cartItems.length
@@ -25,7 +25,7 @@ const CartDropdownCmp = ({ cartItems, toggleCartHidden, history }) => (
     </CartItemsContainer>
     <CartDropdownButton
       onClick={() => {
-        toggleCartHidden();
+        dispatch(toggleCartHidden());
         history.push('/checkout');
       }}>GO TO CHECKOUT</CartDropdownButton>
   </CartDropdownContainer>
@@ -35,11 +35,7 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems
 });
 
-const mapDispatchToProps = dispatch => ({
-  toggleCartHidden: () => dispatch(toggleCartHidden())
-});
-
 export const CartDropdown = compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(CartDropdownCmp);

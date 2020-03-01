@@ -12,7 +12,7 @@ import {
 } from './cart-icon.styles';
 
 
-const CartIconCmp = ({ toggleCartHidden, itemCount }) => (
+export const CartIconCmp = ({ toggleCartHidden, itemCount }) => (
   <CartContainer onClick={toggleCartHidden}>
     <ShoppingIcon />
     <ItemCountContainer>{itemCount}</ItemCountContainer>
