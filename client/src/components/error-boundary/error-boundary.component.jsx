@@ -12,7 +12,7 @@ export class ErrorBoundary extends React.Component {
     return { hasErrored: true };
   };
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error) {
     console.log(error);
   }
 
