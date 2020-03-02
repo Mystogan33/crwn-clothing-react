@@ -12,22 +12,22 @@ import {
   PriceContainer
 } from './collection-item.styles';
 
+export const CollectionItemComponent = ({item, addItem}) => {
+  const { name, price, imageUrl } = item;
+  return (
+    <CollectionItemContainer>
+      <BackgroundImage className='image' imageUrl={imageUrl} />
+      <CollectionFooterContainer>
+        <NameContainer>{name}</NameContainer>
+        <PriceContainer>${price}</PriceContainer>
+      </CollectionFooterContainer>
+      <AddButton onClick={() => addItem(item)} inverted>Add to cart</AddButton>
+    </CollectionItemContainer>
+  );
+};
+
 const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item))
-})
+});
 
-export const CollectionItem = connect(null, mapDispatchToProps)(
-  ({item, addItem}) => {
-    const { name, price, imageUrl } = item;
-    return (
-      <CollectionItemContainer>
-        <BackgroundImage className='image' imageUrl={imageUrl} />
-        <CollectionFooterContainer>
-          <NameContainer>{name}</NameContainer>
-          <PriceContainer>${price}</PriceContainer>
-        </CollectionFooterContainer>
-        <AddButton onClick={() => addItem(item)} inverted>Add to cart</AddButton>
-      </CollectionItemContainer>
-    )
-  }
-);
+export const CollectionItem = connect(null, mapDispatchToProps)(CollectionItemComponent);
