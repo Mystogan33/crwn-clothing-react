@@ -12,7 +12,7 @@
     "server:start": "node server.js",
     "server:start:watch": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server:start:watch\" \"npm run client:start\"",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run test && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
