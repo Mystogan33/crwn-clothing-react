@@ -28,10 +28,7 @@ export function* updateCartInFirebase() {
 export function* checkCartFromFirebase({ payload: user }) {
   try {
     const cartRef = yield getUserCartRef(user.id);
-    if(!cartRef) {
-      yield put(setCartFromFirebase([]));
-      return;
-    }
+    if(!cartRef) return;
     const cartSnapshot = yield cartRef.get();
     yield put(setCartFromFirebase(cartSnapshot.data().cartItems));
   } catch (error) {
