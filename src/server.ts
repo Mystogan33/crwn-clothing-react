@@ -1,9 +1,9 @@
-import express from 'express';
+import express, { static as expressStatic } from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
+import { json, urlencoded } from 'body-parser';
 import { join } from 'path';
 import compression from 'compression';
-import enforce from 'express-sslify';
+import { HTTPS } from 'express-sslify';
 import Stripe from 'stripe';
 
 if(process.env.NODE_ENV !== 'production') {
@@ -17,16 +17,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use([
-  bodyParser.json(),
-  bodyParser.urlencoded({ extended: true }),
+  json(),
+  urlencoded({ extended: true }),
   cors()
 ]);
 
 if(process.env.NODE_ENV === 'production') {
   app.use([
     compression(),
-    enforce.HTTPS({ trustProtoHeader: true }),
-    express.static(join(__dirname, '../', 'client/build'))
+    HTTPS({ trustProtoHeader: true }),
+    expressStatic(join(__dirname, '../', 'client/build'))
   ]);
 
   app.get('/service-worker.js', (_, res) => {
