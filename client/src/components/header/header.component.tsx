@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
@@ -20,7 +20,24 @@ import {
   OptionLink
 } from './header.styles';
 
-export const HeaderComponent = ({
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  signOutStart: () => dispatch(signOutStart())
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type HeaderProps = PropsFromRedux & {
+  location: Location
+};
+
+export const HeaderComponent: React.FC<HeaderProps> = ({
   currentUser,
   hidden,
   location: { pathname },
@@ -29,7 +46,7 @@ export const HeaderComponent = ({
   const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
-    const scrollListener = (event) => {
+    const scrollListener = () => {
       if(window.scrollY <= 75 && showNavbar === true) {
         setShowNavbar(false);
       } else if(window.scrollY > 75 && showNavbar === false) {
@@ -62,16 +79,7 @@ export const HeaderComponent = ({
     )
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  hidden: selectCartHidden
-});
-
-const mapDispatchToProps = dispatch => ({
-  signOutStart: () => dispatch(signOutStart())
-});
-
 export const Header = compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(HeaderComponent);
+  connector,
+)(HeaderComponent) as React.ComponentType<any>;

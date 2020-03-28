@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
@@ -15,11 +15,22 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-export const CartDropdownCmp = ({ cartItems, dispatch , history }) => (
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ICartDropdownProps = PropsFromRedux & {
+  history: any
+};
+
+export const CartDropdownCmp: React.FC<ICartDropdownProps> = ({ cartItems, dispatch , history }) => (
   <CartDropdownContainer>
     <CartItemsContainer>
       { cartItems.length
-        ? cartItems.map(item => <CartItem key={item.id} item={item} />)
+        ? cartItems.map((item: any) => <CartItem key={item.id} item={item} />)
         : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
       }
     </CartItemsContainer>
@@ -31,11 +42,7 @@ export const CartDropdownCmp = ({ cartItems, dispatch , history }) => (
   </CartDropdownContainer>
 );
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems
-});
-
 export const CartDropdown = compose(
   withRouter,
-  connect(mapStateToProps)
-)(CartDropdownCmp);
+  connector
+)(CartDropdownCmp) as React.ComponentType<any>;
