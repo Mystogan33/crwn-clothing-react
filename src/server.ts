@@ -30,11 +30,11 @@ if(process.env.NODE_ENV === 'production') {
   ]);
 
   app.get('/service-worker.js', (_, res) => {
-    res.sendFile(join(__dirname, '../', 'client/build', 'service-worker.js'));
+    res.sendFile('/service-worker.js');
   });
 
   app.get('*', (_, res) => {
-    res.sendFile(join(__dirname, '../', 'client/build', 'index.html'));
+    res.sendFile('/index.html');
   });
 }
 
