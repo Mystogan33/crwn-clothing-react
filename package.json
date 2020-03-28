@@ -9,10 +9,11 @@
     "client:start": "cd client && npm run start",
     "client:build": "cd client && npm run build",
     "client:test": "cd client && npm run test",
-    "server:start": "tsc && node dist/server.js",
-    "server:start:watch": "tsc && nodemon dist/server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server:start:watch\" \"npm run client:start\"",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "start:watch": "npm run build && nodemon dist/server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run start:watch\" \"npm run client:start\"",
+    "heroku-postbuild": "npm run build && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@types/stripe": "^7.13.22",
