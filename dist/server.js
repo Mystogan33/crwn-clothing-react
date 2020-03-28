@@ -24,6 +24,7 @@ app.use([
     cors_1.default()
 ]);
 if (process.env.NODE_ENV === 'production') {
+    console.log("Production mode");
     app.use([
         compression_1.default(),
         express_sslify_1.default.HTTPS({ trustProtoHeader: true }),

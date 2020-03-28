@@ -23,6 +23,7 @@ app.use([
 ]);
 
 if(process.env.NODE_ENV === 'production') {
+  console.log("Production mode");
   app.use([
     compression(),
     enforce.HTTPS({ trustProtoHeader: true }),
