@@ -26,15 +26,15 @@ if(process.env.NODE_ENV === 'production') {
   app.use([
     compression(),
     enforce.HTTPS({ trustProtoHeader: true }),
-    express.static(join(__dirname, 'client/build'))
+    express.static(join(__dirname, '../', 'client/build'))
   ]);
 
   app.get('/service-worker.js', (_, res) => {
-    res.sendFile(join(__dirname, 'client/build', 'service-worker.js'));
+    res.sendFile(join(__dirname, '../', 'client/build', 'service-worker.js'));
   });
 
   app.get('*', (_, res) => {
-    res.sendFile(join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(join(__dirname, '../', 'client/build', 'index.html'));
   });
 }
 

@@ -24,19 +24,21 @@ app.use([
     cors_1.default()
 ]);
 if (process.env.NODE_ENV === 'production') {
-    console.log("Production mode");
     app.use([
         compression_1.default(),
         express_sslify_1.default.HTTPS({ trustProtoHeader: true }),
-        express_1.default.static(path_1.join(__dirname, 'client/build'))
+        express_1.default.static(path_1.join(__dirname, '../', 'client/build'))
     ]);
     app.get('/service-worker.js', (_, res) => {
-        res.sendFile(path_1.join(__dirname, 'client/build', 'service-worker.js'));
+        res.sendFile(path_1.join(__dirname, '../', 'client/build', 'service-worker.js'));
     });
     app.get('*', (_, res) => {
-        res.sendFile(path_1.join(__dirname, 'client/build', 'index.html'));
+        res.sendFile(path_1.join(__dirname, '../', 'client/build', 'index.html'));
     });
 }
+app.get('/dirname', (req, res) => {
+    res.status(200).send({ pathname: path_1.join(__dirname, '../') });
+});
 app.post('/payment', (req, res) => {
     const { token: { id }, amount } = req.body;
     const body = {
