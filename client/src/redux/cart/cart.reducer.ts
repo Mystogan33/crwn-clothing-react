@@ -1,7 +1,13 @@
 import { CartActionTypes } from './cart.types';
 import { addItemToCart, removeItemFromCart, clearItemFromCart } from './cart.utils';
+import { ICartItems } from '../../interfaces/interfaces';
 
-const INITIAL_STATE = {
+type ICartState = {
+  hidden: boolean,
+  cartItems: ICartItems
+};
+
+const INITIAL_STATE: ICartState = {
   hidden: true,
   cartItems: []
 };

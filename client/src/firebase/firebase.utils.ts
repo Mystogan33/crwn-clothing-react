@@ -40,7 +40,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const getUserCartRef = async userId => {
+export const getUserCartRef = async (userId) => {
   const cartRef = firestore.collection('carts').where('userId', '==', userId);
   const snapShot = await cartRef.get();
 

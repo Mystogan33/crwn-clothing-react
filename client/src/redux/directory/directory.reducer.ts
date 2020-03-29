@@ -1,6 +1,11 @@
 import { DIRECTORY_DATA } from './directory.data';
+import { ICategory } from '../../interfaces/interfaces';
 
-const INITIAL_STATE = {
+export type IDirectoryState = {
+  sections: ICategory[]
+};
+
+const INITIAL_STATE: IDirectoryState = {
   sections: DIRECTORY_DATA
 };
 

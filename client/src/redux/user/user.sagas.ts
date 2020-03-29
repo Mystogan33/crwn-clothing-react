@@ -66,7 +66,7 @@ export function* signOut() {
 
  /* CHECKING USER */
 
-export function* getSnapshotFromUserAuth(userAuth, additionalData) {
+export function* getSnapshotFromUserAuth(userAuth: firebase.auth.UserCredential, additionalData?: {}) {
   try {
     const userRef = yield call(
       createUserProfileDocument,
