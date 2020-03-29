@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense, ReactComponentElement } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { createStructuredSelector } from 'reselect';

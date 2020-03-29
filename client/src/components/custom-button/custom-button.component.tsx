@@ -1,4 +1,4 @@
-import React, { ReactChildren, FC } from 'react';
+import React, { FC } from 'react';
 import { CustomButtonContainer } from './custom-button.styles';
 
 type ICustomButtonProps = {

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { CollectionItem } from '../../components';
 
 import {

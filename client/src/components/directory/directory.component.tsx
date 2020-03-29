@@ -20,7 +20,7 @@ type IDirectoryComponentProps = PropsFromRedux;
 
 export const DirectoryComponent: FC<IDirectoryComponentProps> = ({sections}) => (
   <DirectoryMenuContainer>
-    { sections.map(({id, ...othersProps}: {id: string | number, [x: string]: any}) => (
+    { sections.map(({id, ...othersProps}: any) => (
         <MenuItem key={id} {...othersProps} />
       ))
     }

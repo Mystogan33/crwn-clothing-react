@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth: any, additionalData: any) => {
   if(!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -40,7 +40,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const getUserCartRef = async (userId) => {
+export const getUserCartRef = async (userId: any) => {
   const cartRef = firestore.collection('carts').where('userId', '==', userId);
   const snapShot = await cartRef.get();
 
@@ -53,11 +53,11 @@ export const getUserCartRef = async (userId) => {
   }
 };
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (collectionKey: any, objectsToAdd: any) => {
   const collectionRef = firestore.collection(collectionKey);
 
   const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
+  objectsToAdd.forEach((obj: any) => {
     const newDocRef = collectionRef.doc();
     batch.set(newDocRef, obj);
   });
@@ -65,8 +65,8 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   return await batch.commit();
 };
 
-export const convertCollectionsSnapshotToMap = collectionsSnapshot => {
-  const transformedCollection = collectionsSnapshot.docs.map(doc => {
+export const convertCollectionsSnapshotToMap = (collectionsSnapshot: any) => {
+  const transformedCollection = collectionsSnapshot.docs.map((doc: any) => {
     const { title, items } = doc.data();
 
     return {
@@ -77,7 +77,7 @@ export const convertCollectionsSnapshotToMap = collectionsSnapshot => {
     };
   });
 
-  return transformedCollection.reduce((accumulator, collection) => {
+  return transformedCollection.reduce((accumulator: any, collection: any) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   } , {});

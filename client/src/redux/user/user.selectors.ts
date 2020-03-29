@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import { RootStateOrAny } from 'react-redux';
 
 const selectUser = (state: any) => state.user;
 

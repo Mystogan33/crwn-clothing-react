@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { withRouter, match, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {
   CollectionPreviewContainer,

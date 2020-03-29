@@ -6,14 +6,14 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "client:start": "cd client && npm run start",
-    "client:build": "cd client && npm run build",
-    "client:test": "cd client && npm run test",
+    "client:start": "cd .. && cd client && npm run start",
+    "client:build": "cd .. && client && npm run build",
+    "client:test": "cd .. && cd client && npm run test",
     "build": "tsc",
     "start": "node dist/server.js",
     "start:watch": "npm run build && nodemon dist/server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run start:watch\" \"npm run client:start\"",
-    "heroku-postbuild": "npm run build && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "npm run build && cd .. && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@types/stripe": "^7.13.22",

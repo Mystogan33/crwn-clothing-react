@@ -26,7 +26,7 @@ if(process.env.NODE_ENV === 'production') {
   app.use([
     compression(),
     HTTPS({ trustProtoHeader: true }),
-    expressStatic(join(__dirname, '../', 'client/build'))
+    expressStatic(join(__dirname, '../../', 'client/build'))
   ]);
 
   app.get('/service-worker.js', (_, res) => {

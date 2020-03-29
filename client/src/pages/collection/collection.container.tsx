@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 import { selectIsCollectionsLoaded, selectCollection } from '../../redux/shop/shop.selectors';
 import { WithSpinner } from '../../components';

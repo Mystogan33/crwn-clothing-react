@@ -54,12 +54,12 @@ const OptionsContainer = styled.div`
   }
 `;
 
-const isActive = ({ to, active }: { to: string, active: string }) => {
+const isActive = ({ to, active }: any) => {
   if(to && (to === active))
     return hoverOrActiveLink;
 };
 
-const OptionLink = styled(Link)<Link>`
+const OptionLink = styled(Link)<{as?: string, active?: string}>`
   padding: 10px 15px;
   cursor: pointer;
   font-weight: bold;

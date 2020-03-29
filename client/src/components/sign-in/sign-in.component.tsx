@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import { FormInput } from '../form-input/form-input.component';
 import { CustomButton } from '../custom-button/custom-button.component';
@@ -13,10 +14,9 @@ import {
   SignInForm
 } from './sign-in.styles';
 
-
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   googleSignInStart: () => dispatch(googleSignInStart()),
-  emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
+  emailSignInStart: (email: string, password: string) => dispatch(emailSignInStart({ email, password }))
 });
 
 const connector = connect(null, mapDispatchToProps);
