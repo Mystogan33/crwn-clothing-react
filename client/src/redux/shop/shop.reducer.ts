@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   errorMessage: undefined
 };
 
-const shopReducer = (state = INITIAL_STATE, action) => {
+const shopReducer = (state = INITIAL_STATE, action: any) => {
   switch(action.type) {
     case ShopActionTypes.FETCH_COLLECTIONS_START:
       return {

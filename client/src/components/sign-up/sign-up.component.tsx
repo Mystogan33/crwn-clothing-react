@@ -1,18 +1,18 @@
 import React, { useState, FC, FormEvent, ChangeEvent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import { signUpStart } from '../../redux/user/user.actions';
 
 import { FormInput } from '../form-input/form-input.component';
 import { CustomButton } from '../custom-button/custom-button.component';
+import { IUserCredentials } from '../../interfaces/interfaces';
 
 import {
   SignUpContainer,
   SignUpTitle,
   SignUpForm
 } from './sign-up.styles';
-import { Dispatch } from 'redux';
-import { IUserCredentials } from '../../interfaces/interfaces';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   signUpStart: (userCredentials: IUserCredentials) => dispatch(signUpStart(userCredentials))

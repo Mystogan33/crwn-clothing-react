@@ -25,7 +25,7 @@ export function* updateCartInFirebase() {
   }
 };
 
-export function* checkCartFromFirebase({ payload: user }) {
+export function* checkCartFromFirebase({ payload: user }: any) {
   try {
     const cartRef = yield getUserCartRef(user.id);
     if(!cartRef) return;

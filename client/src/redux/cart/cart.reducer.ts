@@ -12,7 +12,7 @@ const INITIAL_STATE: ICartState = {
   cartItems: []
 };
 
-const cartReducer = (state = INITIAL_STATE, action) => {
+const cartReducer = (state = INITIAL_STATE, action: any) => {
   switch(action.type) {
     case CartActionTypes.TOGGLE_CART_HIDDEN:
       return {

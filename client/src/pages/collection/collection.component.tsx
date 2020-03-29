@@ -8,13 +8,13 @@ import {
   CollectionItemsContainer
 } from './collection.styles';
 
-export const CollectionPage = ({ collection }) => {
+export const CollectionPage = ({ collection }: any) => {
   const { title, items } = collection;
   return (
     <CollectionPageContainer>
       <CollectionTitle>{ title }</CollectionTitle>
       <CollectionItemsContainer>
-        { items.map(item => (
+        { items.map((item: any) => (
             <CollectionItem key={item.id} item={item} />
           ))
         }

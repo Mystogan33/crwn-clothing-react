@@ -1,11 +1,16 @@
 import UserActionTypes from './user.types';
 
-const INITIAL_STATE = {
+export interface IUserState {
+  currentUser: Object | null,
+  error: string | Error | null
+};
+
+const INITIAL_STATE: IUserState = {
   currentUser: null,
   error: null
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const userReducer = (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case UserActionTypes.SIGN_IN_SUCCESS:
       return {

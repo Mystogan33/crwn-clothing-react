@@ -1,11 +1,11 @@
 import { CartActionTypes } from './cart.types';
-import { ICartItem, ICollectionItem, ICartItems } from '../../interfaces/interfaces';
+import { ICartItem, ICartItems } from '../../interfaces/interfaces';
 
 export const toggleCartHidden = () => ({
   type: CartActionTypes.TOGGLE_CART_HIDDEN
 });
 
-export const addItem = (itemToAdd: ICollectionItem) => ({
+export const addItem = (itemToAdd: ICartItem) => ({
   type: CartActionTypes.ADD_ITEM,
   payload: itemToAdd
 });

@@ -9,7 +9,7 @@ const INITIAL_STATE: IDirectoryState = {
   sections: DIRECTORY_DATA
 };
 
-const directoryReducer = (state = INITIAL_STATE, action) => {
+const directoryReducer = (state = INITIAL_STATE, action: any) => {
   switch(action.type) {
     default:
       return state;

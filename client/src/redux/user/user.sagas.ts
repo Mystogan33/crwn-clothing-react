@@ -29,7 +29,7 @@ export function* signInWithGoogle() {
   }
 };
 
-export function* signInWithEmail({ payload: { email, password } }) {
+export function* signInWithEmail({ payload: { email, password } }: any) {
     try {
       const { user } = yield auth.signInWithEmailAndPassword(email, password);
       yield getSnapshotFromUserAuth(user);
@@ -40,7 +40,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
 
  /* SIGN UP */
 
-export function* signUp({ payload: { email, password, displayName } }) {
+export function* signUp({ payload: { email, password, displayName } }: any) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
     yield put(signUpSuccess({ user, additionalData: { displayName } }));
@@ -49,7 +49,7 @@ export function* signUp({ payload: { email, password, displayName } }) {
   }
 };
 
-export function* signInAfterSignUp({ payload: { user, additionalData } }) {
+export function* signInAfterSignUp({ payload: { user, additionalData } }: any) {
   yield getSnapshotFromUserAuth(user, additionalData);
 };
 
@@ -66,7 +66,7 @@ export function* signOut() {
 
  /* CHECKING USER */
 
-export function* getSnapshotFromUserAuth(userAuth: firebase.auth.UserCredential, additionalData?: {}) {
+export function* getSnapshotFromUserAuth(userAuth: any, additionalData?: {}) {
   try {
     const userRef = yield call(
       createUserProfileDocument,
