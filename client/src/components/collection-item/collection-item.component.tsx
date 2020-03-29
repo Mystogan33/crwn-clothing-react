@@ -1,7 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
 
 import { addItem } from '../../redux/cart/cart.actions';
+import { ICartItem } from '../../interfaces/interfaces';
 
 import {
   CollectionItemContainer,
@@ -12,7 +14,17 @@ import {
   PriceContainer
 } from './collection-item.styles';
 
-export const CollectionItemComponent = ({item, addItem}) => {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  addItem: (item: ICartItem) => dispatch(addItem(item))
+});
+
+const connector = connect(null, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ICollectionItemProps = PropsFromRedux & {
+  item: ICartItem
+}
+
+export const CollectionItemComponent: FC<ICollectionItemProps> = ({item, addItem}) => {
   const { name, price, imageUrl } = item;
   return (
     <CollectionItemContainer>
@@ -25,9 +37,5 @@ export const CollectionItemComponent = ({item, addItem}) => {
     </CollectionItemContainer>
   );
 };
-
-const mapDispatchToProps = dispatch => ({
-  addItem: item => dispatch(addItem(item))
-});
 
 export const CollectionItem = connect(null, mapDispatchToProps)(CollectionItemComponent);

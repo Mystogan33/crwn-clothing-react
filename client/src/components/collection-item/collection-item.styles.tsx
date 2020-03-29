@@ -48,7 +48,7 @@ const AddButton = styled(CustomButton)`
   }
 `;
 
- const BackgroundImage = styled.div`
+ const BackgroundImage = styled.div<{ imageUrl? : string}>`
   width: 100%;
   height: 95%;
   background-size: cover;

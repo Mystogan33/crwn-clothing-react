@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { ReactChildren, FC } from 'react';
 import { CustomButtonContainer } from './custom-button.styles';
 
-export const CustomButton = ({children, ...otherProps}) => (
+type ICustomButtonProps = {
+  [x: string]: any
+};
+
+export const CustomButton: FC<ICustomButtonProps> = ({children, ...otherProps}) => (
   <CustomButtonContainer {...otherProps}>
     {children}
   </CustomButtonContainer>

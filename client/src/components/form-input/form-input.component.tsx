@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   GroupContainer,
@@ -6,7 +6,13 @@ import {
   FormInputLabel
 } from './form-input.styles';
 
-export const FormInput = ({handleChange, label, ...otherProps}) => (
+type IFormInputProps = {
+  handleChange: Function,
+  label: string,
+  [x: string]: any
+};
+
+export const FormInput: FC<IFormInputProps> = ({ handleChange, label, ...otherProps }) => (
   <GroupContainer>
     <FormInputContainer onChange={handleChange} {...otherProps} />
     { label ? (

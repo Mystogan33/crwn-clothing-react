@@ -8,11 +8,11 @@ export class ErrorBoundary extends React.Component {
     hasErrored: false
   };
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error) {
     return { hasErrored: true };
   };
 
-  componentDidCatch(error) {
+  componentDidCatch(error: Error) {
     console.log(error);
   }
 

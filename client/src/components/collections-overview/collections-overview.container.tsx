@@ -1,19 +1,31 @@
-import { connect } from 'react-redux';
+import React, { FC } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import { selectIsCollectionFetching, selectShopCollectionsForPreview } from '../../redux/shop/shop.selectors';
+
+import { CollectionPreview } from '../collection-preview/collection-preview.component';
 import { WithSpinner } from '../with-spinner/with-spinner.component';
-import { CollectionsOverview } from './collections-overview.component';
+import { CollectionsOverviewContainer } from './collections-overview.styles';
 
 const mapStateToProps = createStructuredSelector({
   isLoading: selectIsCollectionFetching,
   collections: selectShopCollectionsForPreview
 });
 
-export const CollectionsOverviewContainer = compose(
-  connect(mapStateToProps),
-  WithSpinner,
-)(CollectionsOverview);
+const connector = connect(mapStateToProps);
 
-export default CollectionsOverviewContainer;
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type ICollectionsOverviewProps = PropsFromRedux;
+
+export const CollectionsOverviewCmp: FC<ICollectionsOverviewProps> = ({ collections }) => (
+  <CollectionsOverviewContainer>
+    { collections.map(({id, ...otherProps }) => (
+        <CollectionPreview key={id} {...otherProps} />
+      ))
+    }
+  </CollectionsOverviewContainer>
+);
+
+const connectedComponent = connector(CollectionsOverviewCmp);
+const CollectionsOverview = WithSpinner(connectedComponent);
+export default CollectionsOverview;

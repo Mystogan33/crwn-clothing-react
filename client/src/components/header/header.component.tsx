@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
@@ -19,6 +18,7 @@ import {
   OptionsContainer,
   OptionLink
 } from './header.styles';
+import { Dispatch } from 'redux';
 
 
 const mapStateToProps = createStructuredSelector({
@@ -26,7 +26,7 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   signOutStart: () => dispatch(signOutStart())
 });
 
@@ -34,10 +34,10 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type HeaderProps = PropsFromRedux & {
-  location: Location
+  location: any
 };
 
-export const HeaderComponent: React.FC<HeaderProps> = ({
+export const HeaderComponent: FC<HeaderProps> = ({
   currentUser,
   hidden,
   location: { pathname },
@@ -79,7 +79,5 @@ export const HeaderComponent: React.FC<HeaderProps> = ({
     )
 };
 
-export const Header = compose(
-  withRouter,
-  connector,
-)(HeaderComponent) as React.ComponentType<any>;
+const connectedComponent = connector(HeaderComponent);
+export const Header = withRouter(connectedComponent);

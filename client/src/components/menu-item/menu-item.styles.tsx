@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MenuItemContainer = styled.div`
+export const MenuItemContainer = styled.div<{size: boolean | string | number}>`
 	height: ${({ size }) => (size ? '380px' : '240px')};
 	min-width: 30%;
 	overflow: hidden;
@@ -39,7 +39,7 @@ export const MenuItemContainer = styled.div`
 	}
 `;
 
-export const BackgroundImageContainer = styled.div`
+export const BackgroundImageContainer = styled.div<{imageUrl: string}>`
   width: 100%;
   height: 100%;
   background-size: cover;

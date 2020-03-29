@@ -9,7 +9,7 @@ export const ErrorImageOverlay = styled.div`
   align-items: center;
 `;
 
-export const ErrorImageContainer = styled.div`
+export const ErrorImageContainer = styled.div<{ imageUrl? : string}>`
   display: inline-block;
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
   background-size: cover;

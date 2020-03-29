@@ -1,5 +1,5 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { FC } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {
   MenuItemContainer,
@@ -9,7 +9,14 @@ import {
   ContentSubtitle
 } from './menu-item.styles';
 
-export const MenuItemComponent = ({
+type IMenuItemProps = RouteComponentProps & {
+  title: string,
+  imageUrl: string,
+  size: boolean | number | string,
+  linkUrl: string
+};
+
+export const MenuItemComponent: FC<IMenuItemProps> = ({
     title,
     imageUrl,
     size,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { CollectionsOverview } from './collections-overview.component';
+import { CollectionsOverviewCmp } from './collections-overview.component';
 import { CollectionPreview } from '../collection-preview/collection-preview.component';
 
 describe('CollectionsOverview component', () => {
@@ -36,7 +36,7 @@ describe('CollectionsOverview component', () => {
       }
     ];
 
-    wrapper = shallow(<CollectionsOverview collections={mockCollections} />);
+    wrapper = shallow(<CollectionsOverviewCmp collections={mockCollections} />);
   });
 
   
@@ -50,7 +50,7 @@ describe('CollectionsOverview component', () => {
   });
 
   it('should not render any CollectionPreview if collections prop is empty', () => {
-    const newWrapper = shallow(<CollectionsOverview collections={[]} />);
+    const newWrapper = shallow(<CollectionsOverviewCmp collections={[]} />);
     expect(newWrapper.exists(CollectionPreview)).toBe(false);
   });
 });

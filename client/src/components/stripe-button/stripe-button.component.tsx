@@ -1,12 +1,16 @@
-import React from 'react';
-import StripeCheckout from 'react-stripe-checkout';
+import React, { FC } from 'react';
+import StripeCheckout, { Token } from 'react-stripe-checkout';
 import axios from 'axios';
 
-export const StripeCheckoutButton = ({ price }) => {
+type IStripeCheckoutProps = {
+  price: number
+};
+
+export const StripeCheckoutButton: FC<IStripeCheckoutProps> = ({ price }) => {
   const priceForStripe = price * 100;
   const publishableKey = "pk_test_5FzXguWrhk37WLQGCeLhSTFw00TrIwxkJp";
 
-  const onToken = async token => {
+  const onToken = async (token: Token) => {
     try {
       await axios({
         url: 'payment',

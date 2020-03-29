@@ -54,7 +54,7 @@ const OptionsContainer = styled.div`
   }
 `;
 
-const isActive = ({ to, active }: { to: string, active: string}) => {
+const isActive = ({ to, active }: { to: string, active: string }) => {
   if(to && (to === active))
     return hoverOrActiveLink;
 };
