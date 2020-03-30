@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { RootState } from '../root-types';
 
-const selectCart = state => state.cart;
+const selectCart = (state: RootState) => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCart],
@@ -26,4 +27,4 @@ export const selectCartTotal = createSelector(
     cartItems.reduce((accumulatePrice, cartItem) =>
       accumulatePrice + (cartItem.price * cartItem.quantity), 0)
   )
-)
+);

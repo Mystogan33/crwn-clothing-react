@@ -1,39 +1,39 @@
-import { CartActionTypes } from './cart.types';
+import { CartState, CartActionTypes, TOGGLE_CART_HIDDEN, ADD_ITEM, CLEAR_ITEM_FROM_CART, REMOVE_ITEM, CLEAR_CART, SET_CART_FROM_FIREBASE } from './cart.types';
 import { addItemToCart, removeItemFromCart, clearItemFromCart } from './cart.utils';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: CartState = {
   hidden: true,
   cartItems: []
 };
 
-const cartReducer = (state = INITIAL_STATE, action) => {
+const cartReducer = (state = INITIAL_STATE, action: CartActionTypes) => {
   switch(action.type) {
-    case CartActionTypes.TOGGLE_CART_HIDDEN:
+    case TOGGLE_CART_HIDDEN:
       return {
         ...state,
         hidden: !state.hidden
       };
-    case CartActionTypes.ADD_ITEM:
+    case ADD_ITEM:
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload)
       };
-    case CartActionTypes.CLEAR_ITEM_FROM_CART:
+    case CLEAR_ITEM_FROM_CART:
       return {
         ...state,
         cartItems: clearItemFromCart(state.cartItems, action.payload)
       };
-    case CartActionTypes.REMOVE_ITEM:
+    case REMOVE_ITEM:
       return {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, action.payload)
       };
-    case CartActionTypes.CLEAR_CART:
+    case CLEAR_CART:
       return {
         ...state,
         cartItems: []
       };
-    case CartActionTypes.SET_CART_FROM_FIREBASE:
+    case SET_CART_FROM_FIREBASE:
       return {
         ...state,
         cartItems: action.payload
