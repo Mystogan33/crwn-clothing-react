@@ -1,4 +1,6 @@
-export const DIRECTORY_DATA = [
+import { ICategories } from "../../interfaces/interfaces";
+
+export const DIRECTORY_DATA: ICategories = [
   {
       title: 'hats',
       imageUrl: '/images/hats.png',

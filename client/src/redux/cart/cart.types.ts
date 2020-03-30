@@ -13,34 +13,34 @@ export const CLEAR_CART = 'CLEAR_CART';
 export const UPDATE_CART_IN_FIREBASE = 'UPDATE_CART_IN_FIREBASE';
 export const SET_CART_FROM_FIREBASE = 'SET_CART_FROM_FIREBASE';
 
-interface ToggleCartHiddenAction {
+export interface ToggleCartHiddenAction {
   type: typeof TOGGLE_CART_HIDDEN
 };
 
-interface AddItemAction {
+export interface AddItemAction {
   type: typeof ADD_ITEM,
   payload: ICartItem | ICollectionItem
 };
 
-interface removeItemAction {
+export interface removeItemAction {
   type: typeof REMOVE_ITEM,
   payload: ICartItem
 };
 
-interface clearItemAction {
+export interface clearItemAction {
   type: typeof CLEAR_ITEM_FROM_CART,
   payload: ICartItem
 };
 
-interface clearCartAction {
+export interface clearCartAction {
   type: typeof CLEAR_CART
 };
 
-interface updateCartInFirebaseAction {
+export interface updateCartInFirebaseAction {
   type: typeof UPDATE_CART_IN_FIREBASE
 };
 
-interface setCartFromFirebaseAction {
+export interface setCartFromFirebaseAction {
   type: typeof SET_CART_FROM_FIREBASE,
   payload: ICartItems
 };

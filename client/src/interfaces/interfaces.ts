@@ -1,3 +1,7 @@
+// Error
+export type ErrorMessage = Error | string;
+
+// Shop Collections
 export interface ICollectionItem {
   id: number,
   imageUrl: string,
@@ -15,11 +19,16 @@ export interface ICollections {
   [x: string]: ICollection
 };
 
+
+// Cart
+
 export interface ICartItem extends ICollectionItem {
   quantity: number
 };
 
 export interface ICartItems extends Array<ICartItem> {};
+
+// Directory Categories
 
 export interface ICategory {
   title: string,
@@ -31,4 +40,14 @@ export interface ICategory {
 
 export interface ICategories extends Array<ICategory> {};
 
-export type ErrorMessage = Error | string;
+
+// User
+export type User = {
+  id: string,
+  createdAt: {
+    seconds: number,
+    nanoseconds: number
+  },
+  displayName: string,
+  email: string
+};
