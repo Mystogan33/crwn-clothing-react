@@ -12,7 +12,8 @@ export interface ICollectionItem {
 export interface ICollection {
   id?: number | string,
   items: ICollectionItem[],
-  title: string
+  title: string,
+  routeName: string
 };
 
 export interface ICollections {
@@ -40,14 +41,15 @@ export interface ICategory {
 
 export interface ICategories extends Array<ICategory> {};
 
-
-// User
-export type User = {
-  id: string,
-  createdAt: {
-    seconds: number,
-    nanoseconds: number
-  },
-  displayName: string,
-  email: string
+export type User = Partial<firebase.User> & {
+  id: string
 };
+
+export type SignInCredentials = {
+  email: string,
+  password: string
+};
+
+export type SignUpCredentials = SignInCredentials & {
+  displayName: string
+}

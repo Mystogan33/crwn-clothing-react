@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import { ICollections, ICollection } from '../interfaces/interfaces';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDEgLladDSpN-ciftUPkyASdvc8Hjsx2EI",
@@ -14,7 +15,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth: firebase.User, additionalData?: { displayName: string }) => {
   if(!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -40,7 +41,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const getUserCartRef = async userId => {
+export const getUserCartRef = async (userId: string) => {
   const cartRef = firestore.collection('carts').where('userId', '==', userId);
   const snapShot = await cartRef.get();
 
@@ -53,31 +54,21 @@ export const getUserCartRef = async userId => {
   }
 };
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-  const collectionRef = firestore.collection(collectionKey);
-
-  const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
-    const newDocRef = collectionRef.doc();
-    batch.set(newDocRef, obj);
-  });
-
-  return await batch.commit();
-};
-
-export const convertCollectionsSnapshotToMap = collectionsSnapshot => {
+export const convertCollectionsSnapshotToMap = (collectionsSnapshot: firebase.firestore.QuerySnapshot) => {
   const transformedCollection = collectionsSnapshot.docs.map(doc => {
     const { title, items } = doc.data();
 
-    return {
+    const collection: ICollection = {
       routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
       items
-    };
+    }
+
+    return collection;
   });
 
-  return transformedCollection.reduce((accumulator, collection) => {
+  return transformedCollection.reduce((accumulator: ICollections, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   } , {});
@@ -92,6 +83,18 @@ export const getCurrentUser = () => {
   });
 };
 
+// // For dev purpose
+// export const addCollectionAndDocuments = async (collectionKey: string, objectsToAdd: ICollectionItem[]) => {
+//   const collectionRef = firestore.collection(collectionKey);
+
+//   const batch = firestore.batch();
+//   objectsToAdd.forEach(obj => {
+//     const newDocRef = collectionRef.doc();
+//     batch.set(newDocRef, obj);
+//   });
+
+//   return await batch.commit();
+// };
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

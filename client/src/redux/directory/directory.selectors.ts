@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../root-types';
+import { AppState } from '../root-types';
 
-const selectDirectory = (state: RootState) => state.directory;
+const selectDirectory = (state: AppState) => state.directory;
 
 export const selectDirectorySections = createSelector(
   [selectDirectory],

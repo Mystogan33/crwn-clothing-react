@@ -1,9 +1,11 @@
 import { ShopState } from "./shop/shop.types";
 import { CartState } from "./cart/cart.types";
 import { DirectoryState } from "./directory/directory.type";
+import { UserState } from "./user/user.types";
 
-export interface RootState {
+export interface AppState {
   shop: ShopState,
   cart: CartState,
-  directory: DirectoryState
+  directory: DirectoryState,
+  user: UserState
 };
