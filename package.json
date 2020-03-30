@@ -9,7 +9,7 @@
     "client:start": "cd client && npm run start",
     "client:build": "cd client && npm run build",
     "client:test": "cd client && npm run test",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.server.json",
     "start": "node dist/server.js",
     "start:watch": "npm run build && nodemon dist/server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run start:watch\" \"npm run client:start\"",
