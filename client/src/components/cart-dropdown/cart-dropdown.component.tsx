@@ -1,13 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { compose } from 'redux';
+import { RootState } from '../../redux/root-reducer';
 
 import { createStructuredSelector } from 'reselect';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import { CartItem } from '../cart-item/cart-item.component';
+import { ICartItems } from '../../interfaces/interfaces';
+
 import {
   CartDropdownContainer,
   CartDropdownButton,
@@ -15,7 +18,19 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-export const CartDropdownCmp = ({ cartItems, dispatch , history }) => (
+interface selectors {
+  cartItems: ICartItems
+};
+
+const mapStateToProps = createStructuredSelector<RootState, selectors>({
+  cartItems: selectCartItems
+});
+
+const connector = connect(mapStateToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+type AppProps = ReduxProps & RouteComponentProps;
+
+export const CartDropdownCmp = ({ cartItems, dispatch , history }: AppProps) => (
   <CartDropdownContainer>
     <CartItemsContainer>
       { cartItems.length
@@ -31,11 +46,7 @@ export const CartDropdownCmp = ({ cartItems, dispatch , history }) => (
   </CartDropdownContainer>
 );
 
-const mapStateToProps = createStructuredSelector({
-  cartItems: selectCartItems
-});
-
 export const CartDropdown = compose(
   withRouter,
-  connect(mapStateToProps)
+  connector,
 )(CartDropdownCmp);

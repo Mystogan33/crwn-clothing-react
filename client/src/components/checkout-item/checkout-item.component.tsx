@@ -1,6 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { clearItemFromCart, addItem, removeItemFromCart } from '../../redux/cart/cart.actions';
+import { ICartItem } from '../../interfaces/interfaces';
 
 import {
   CheckoutItemContainer,
@@ -10,7 +12,19 @@ import {
   RemoveButtonContainer
 } from './checkout-item.styles';
 
-export const CheckoutItemComponent = ({ cartItem, clearItemFromCart, addItem, removeItem }) => {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  clearItemFromCart: (itemToRemove: ICartItem) => dispatch(clearItemFromCart(itemToRemove)),
+  addItem: (itemToAdd: ICartItem) => dispatch(addItem(itemToAdd)),
+  removeItem: (itemToRemove: ICartItem) => dispatch(removeItemFromCart(itemToRemove))
+});
+
+const connector = connect(null, mapDispatchToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+type CheckoutItemProps = ReduxProps & {
+  cartItem: ICartItem
+};
+
+export const CheckoutItemComponent = ({ cartItem, clearItemFromCart, addItem, removeItem }: CheckoutItemProps) => {
   const { name, imageUrl, price, quantity } = cartItem;
   return (
     <CheckoutItemContainer>
@@ -31,10 +45,4 @@ export const CheckoutItemComponent = ({ cartItem, clearItemFromCart, addItem, re
   )
 };
 
-const mapDispatchToProps = dispatch => ({
-  clearItemFromCart: itemToRemove => dispatch(clearItemFromCart(itemToRemove)),
-  addItem: itemToAdd => dispatch(addItem(itemToAdd)),
-  removeItem: itemToRemove => dispatch(removeItemFromCart(itemToRemove))
-});
-
-export const CheckoutItem = connect(null, mapDispatchToProps)(CheckoutItemComponent);
+export const CheckoutItem = connector(CheckoutItemComponent);

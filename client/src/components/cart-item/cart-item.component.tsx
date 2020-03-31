@@ -1,11 +1,17 @@
 import React from 'react';
+import { ICartItem } from '../../interfaces/interfaces';
+
 import {
   CartItemContainer,
   CartItemImage,
   ItemDetailsContainer
 } from './cart-item.styles';
 
-const CartItemComponent = ({ item: { imageUrl, price, name, quantity }}) => (
+type CartItemProps = {
+  item: ICartItem
+};
+
+const CartItemComponent = ({ item: { imageUrl, price, name, quantity }}: CartItemProps) => (
   <CartItemContainer>
     <CartItemImage src={imageUrl} alt="item"/>
     <ItemDetailsContainer>
