@@ -41,13 +41,17 @@ const googleSignInStyles = css`
   }
 `;
 
-const getButtonStyles = ({isGoogleSignIn, inverted}) => {
+interface CustomButtonProps {
+  readonly isGoogleSignIn?: boolean;
+  readonly inverted?: boolean;
+};
+
+const getButtonStyles = ({isGoogleSignIn, inverted}: CustomButtonProps) => {
   if(isGoogleSignIn) return googleSignInStyles;
   return inverted ? invertedButtonStyles : defaultButtonStyles;
 };
 
-
-const CustomButtonContainer = styled.button`
+const CustomButtonContainer = styled.button<CustomButtonProps>`
   min-width: 165px;
   width: auto;
   height: 50px;

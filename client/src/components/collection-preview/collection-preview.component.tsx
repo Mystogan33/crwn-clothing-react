@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {
   CollectionPreviewContainer,
@@ -8,8 +8,11 @@ import {
 } from './collection-preview.styles';
 
 import { CollectionItem } from '../collection-item/collection-item.component';
+import { ICollection } from '../../interfaces/interfaces';
 
-export const CollectionPreviewComponent = ({ title, items, routeName, match }) => (
+type CollectionPreviewProps = RouteComponentProps & ICollection;
+
+export const CollectionPreviewComponent = ({ title, items, routeName, match }: CollectionPreviewProps) => (
   <CollectionPreviewContainer>
     <TitleContainer to={`${match.path}/${routeName}`}>{title.toUpperCase()}</TitleContainer>
     <PreviewContainer>
