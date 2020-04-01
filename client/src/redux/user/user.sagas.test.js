@@ -1,18 +1,13 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 
-import UserActionTypes from './user.types';
-
 import {
-  signInSuccess,
   signInFailure,
   signOutSuccess,
   signOutFailure,
-  signUpFailure
 } from './user.actions';
 
 import {
   auth,
-  googleProvider,
   createUserProfileDocument,
   getCurrentUser
 } from '../../firebase/firebase.utils';
@@ -33,11 +28,13 @@ import {
   onSignUpSuccess
 } from './user.sagas';
 
+import { SIGN_UP_SUCCESS, SIGN_UP_START, SIGN_OUT_START, CHECK_USER_SESSION, EMAIL_SIGN_IN_START, GOOGLE_SIGN_IN_START } from './user.types';
+
 describe('on signup success saga', () => {
   it('should trigger on SIGN_UP_SUCCESS', () => {
     const generator = onSignUpSuccess();
     expect(generator.next().value)
-      .toEqual(takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp));
+      .toEqual(takeLatest(SIGN_UP_SUCCESS, signInAfterSignUp));
   });
 });
 
@@ -45,7 +42,7 @@ describe('on signup start saga', () => {
   it('should trigger on SIGN_UP_START', () => {
     const generator = onSignUpStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(UserActionTypes.SIGN_UP_START, signUp));
+      .toEqual(takeLatest(SIGN_UP_START, signUp));
   });
 });
 
@@ -53,7 +50,7 @@ describe('on signout start saga', () => {
   it('should trigger on SIGN_OUT_START', () => {
     const generator = onSignOutStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(UserActionTypes.SIGN_OUT_START, signOut));
+      .toEqual(takeLatest(SIGN_OUT_START, signOut));
   });
 });
 
@@ -61,7 +58,7 @@ describe('on check user session saga', () => {
   it('should trigger on CHECK_USER_SESSION', () => {
     const generator = onCheckUserSession();
     expect(generator.next().value)
-      .toEqual(takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated));
+      .toEqual(takeLatest(CHECK_USER_SESSION, isUserAuthenticated));
   });
 });
 
@@ -69,7 +66,7 @@ describe('on email sign in start saga', () => {
   it('should trigger on EMAIL_SIGN_IN_START', () => {
     const generator = onEmailSignInStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail));
+      .toEqual(takeLatest(EMAIL_SIGN_IN_START, signInWithEmail));
   });
 });
 
@@ -77,7 +74,7 @@ describe('on google sign in start saga', () => {
   it('should trigger on GOOGLE_SIGN_IN_START', () => {
     const generator = onGoogleSignInStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle));
+      .toEqual(takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle));
   });
 });
 

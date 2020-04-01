@@ -4,7 +4,7 @@ import shopReducer from './shop.reducer';
 const initialState = {
   collections: null,
   isFetching: false,
-  errorMessage: undefined
+  errorMessage: null
 };
 
 describe('shopReducer', () => {

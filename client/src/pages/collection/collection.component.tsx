@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { CollectionItem } from '../../components';
+import { ICollection } from '../../interfaces/interfaces';
 
 import {
   CollectionPageContainer,
@@ -8,7 +9,11 @@ import {
   CollectionItemsContainer
 } from './collection.styles';
 
-export const CollectionPage = ({ collection }) => {
+interface CollectionPageProps {
+  collection: ICollection
+}
+
+export const CollectionPage = ({ collection }: CollectionPageProps) => {
   const { title, items } = collection;
   return (
     <CollectionPageContainer>

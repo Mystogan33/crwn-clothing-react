@@ -10,15 +10,14 @@ import {
   fetchCollectionsFailure
 } from './shop.actions';
 
-import ShopActionTypes from './shop.types';
-
 import { fetchCollectionsAsync, fetchCollectionsStart } from './shop.sagas';
+import { FETCH_COLLECTIONS_START } from './shop.types';
 
 describe('fetch collections start saga', () => {
   it('should trigger on FETCH_COLLECTIONS_START', () => {
     const generator = fetchCollectionsStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(ShopActionTypes.FETCH_COLLECTIONS_START,fetchCollectionsAsync));
+      .toEqual(takeLatest(FETCH_COLLECTIONS_START,fetchCollectionsAsync));
   });
 });
 
