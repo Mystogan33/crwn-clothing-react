@@ -22,7 +22,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ;
 const secretKey = process.env.STRIPE_SECRET_KEY;
-console.log(secretKey);
 const stripe = new stripe_1.default(secretKey);
 const app = express_1.default();
 const port = process.env.PORT || 5000;
