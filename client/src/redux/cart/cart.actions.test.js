@@ -1,19 +1,17 @@
-import CartActionTypes from './cart.types';
-
 import {
   addItem,
   removeItemFromCart,
   clearItemFromCart,
   clearCart,
   toggleCartHidden,
-  setCartFromFirebase,
-  updateCartInFirebase
 } from './cart.actions';
+
+import { TOGGLE_CART_HIDDEN, ADD_ITEM, REMOVE_ITEM, CLEAR_ITEM_FROM_CART, CLEAR_CART } from './cart.types';
 
 describe('cart Actions', () => {
   describe('toggleCartHidden action', () => {
     it('should create the toggleHidden action', () => {
-      expect(toggleCartHidden().type).toEqual(CartActionTypes.TOGGLE_CART_HIDDEN);
+      expect(toggleCartHidden().type).toEqual(TOGGLE_CART_HIDDEN);
     });
   });
 
@@ -27,7 +25,7 @@ describe('cart Actions', () => {
       };
 
       const action = addItem(mockItem);
-      expect(action.type).toEqual(CartActionTypes.ADD_ITEM);
+      expect(action.type).toEqual(ADD_ITEM);
       expect(action.payload).toEqual(mockItem);
     });
   });
@@ -42,7 +40,7 @@ describe('cart Actions', () => {
       };
     
       const action = removeItemFromCart(mockItem);
-      expect(action.type).toEqual(CartActionTypes.REMOVE_ITEM);
+      expect(action.type).toEqual(REMOVE_ITEM);
       expect(action.payload).toEqual(mockItem);
     });
   });
@@ -57,14 +55,14 @@ describe('cart Actions', () => {
       };
 
       const action = clearItemFromCart(mockItem);
-      expect(action.type).toEqual(CartActionTypes.CLEAR_ITEM_FROM_CART);
+      expect(action.type).toEqual(CLEAR_ITEM_FROM_CART);
       expect(action.payload).toEqual(mockItem);
     });
   });
 
   describe('clearCart action', () => {
     it('should create the clearCart action', () => {
-      expect(clearCart().type).toEqual(CartActionTypes.CLEAR_CART);
+      expect(clearCart().type).toEqual(CLEAR_CART);
     });
   });
 });

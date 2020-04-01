@@ -1,6 +1,5 @@
 import * as CartActions from './cart.actions';
 import cartReducer from './cart.reducer';
-import { addItemToCart, removeItemFromCart, clearItemFromCart } from './cart.utils';
 
 const initialState = {
   hidden: true,
