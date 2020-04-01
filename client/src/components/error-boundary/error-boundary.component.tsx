@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ErrorImageText, ErrorImageContainer, ErrorImageOverlay } from './error-boundary.styles';
+import { ErrorMessage } from '../../interfaces/interfaces';
 
 export class ErrorBoundary extends React.Component {
 
@@ -8,11 +9,11 @@ export class ErrorBoundary extends React.Component {
     hasErrored: false
   };
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: ErrorMessage) {
     return { hasErrored: true };
   };
 
-  componentDidCatch(error) {
+  componentDidCatch(error: ErrorMessage) {
     console.log(error);
   }
 
