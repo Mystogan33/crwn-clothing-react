@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { compose } from 'redux';
 import { RootState } from '../../redux/root-reducer';
 
 import { createStructuredSelector } from 'reselect';
@@ -46,7 +45,5 @@ export const CartDropdownCmp = ({ cartItems, dispatch , history }: AppProps) => 
   </CartDropdownContainer>
 );
 
-export const CartDropdown = compose(
-  withRouter,
-  connector,
-)(CartDropdownCmp);
+const connectedComponent = connector(CartDropdownCmp);
+export const CartDropdown = withRouter(connectedComponent);

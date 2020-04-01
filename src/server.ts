@@ -11,7 +11,6 @@ if(process.env.NODE_ENV !== 'production') {
 };
 
 const secretKey = process.env.STRIPE_SECRET_KEY!;
-console.log(secretKey);
 const stripe = new Stripe(secretKey);
 
 const app = express();

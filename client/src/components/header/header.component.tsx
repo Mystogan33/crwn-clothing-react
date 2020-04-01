@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { withRouter } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
+import { Dispatch } from 'redux';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
+
+import { RootState } from '../../redux/root-reducer';
 
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -10,6 +12,7 @@ import { signOutStart } from '../../redux/user/user.actions';
 
 import { CartIcon } from '../cart-icon/cart-icon.component';
 import { CartDropdown } from '../cart-dropdown/cart-dropdown.component';
+import { User } from '../../interfaces/interfaces';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
@@ -20,16 +23,34 @@ import {
   OptionLink
 } from './header.styles';
 
+interface Selectors {
+  currentUser: User | null,
+  hidden: boolean
+};
+
+const mapStateToProps = createStructuredSelector<RootState, Selectors>({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  signOutStart: () => dispatch(signOutStart())
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+type HeaderProps = ReduxProps & RouteComponentProps;
+
 export const HeaderComponent = ({
   currentUser,
   hidden,
   location: { pathname },
-  signOutStart }) => {
+  signOutStart }: HeaderProps) => {
 
   const [showNavbar, setShowNavbar] = useState(false);
 
   useEffect(() => {
-    const scrollListener = (event) => {
+    const scrollListener = (event: Event) => {
       if(window.scrollY <= 75 && showNavbar === true) {
         setShowNavbar(false);
       } else if(window.scrollY > 75 && showNavbar === false) {
@@ -62,16 +83,5 @@ export const HeaderComponent = ({
     )
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-  hidden: selectCartHidden
-});
-
-const mapDispatchToProps = dispatch => ({
-  signOutStart: () => dispatch(signOutStart())
-});
-
-export const Header = compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(HeaderComponent);
+const connectedComponent = connector(HeaderComponent);
+export const Header = withRouter(connectedComponent);
