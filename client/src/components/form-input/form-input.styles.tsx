@@ -18,11 +18,11 @@ const GroupContainer = styled.div`
   }
 `;
 
-const hasValue = ({ value }) => {
+const hasValue = ({ value }: {value: any}) => {
   if(value) return shrinkLabelStyles;
 };
 
-const FormInputContainer = styled.input`
+const FormInputContainer = styled.input<any>`
   background: white;
   color: ${subColor};
   font-size: 18px;

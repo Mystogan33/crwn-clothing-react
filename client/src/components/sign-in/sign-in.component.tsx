@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { FormInput } from '../form-input/form-input.component';
 import { CustomButton } from '../custom-button/custom-button.component';
@@ -12,21 +12,31 @@ import {
   ButtonsBarContainer,
   SignInForm
 } from './sign-in.styles';
+import { Dispatch } from 'redux';
 
-export const SignInComponent = ({ emailSignInStart, googleSignInStart }) => {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email: string, password: string) => dispatch(emailSignInStart({ email, password }))
+});
+
+const connector = connect(null, mapDispatchToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+type SignInProps = ReduxProps;
+
+export const SignInComponent = ({ emailSignInStart, googleSignInStart }: SignInProps) => {
 
   const [userCredentials, setCredentials] = useState({email: '', password: ''});
   const { email, password } = userCredentials;
 
-  const handleSubmit = async event => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+    setCredentials({ ...userCredentials, [name]: value});
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     emailSignInStart(email, password);
   };
-
-  const handleChange = event => {
-    const { value, name } = event.target;
-    setCredentials({ ...userCredentials, [name]: value});
-  }
 
   return (
     <SignInContainer>
@@ -64,10 +74,5 @@ export const SignInComponent = ({ emailSignInStart, googleSignInStart }) => {
     </SignInContainer>
   );
 };
-
-const mapDispatchToProps = dispatch => ({
-  googleSignInStart: () => dispatch(googleSignInStart()),
-  emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
-});
 
 export const SignIn = connect(null, mapDispatchToProps)(SignInComponent);

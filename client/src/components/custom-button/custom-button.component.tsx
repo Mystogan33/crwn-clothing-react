@@ -1,8 +1,7 @@
-import React, { ReactChildren } from 'react';
+import React from 'react';
 import { CustomButtonContainer } from './custom-button.styles';
 
 interface CustomButtonProps {
-  children: ReactChildren;
   [x: string]: any;
 };
 

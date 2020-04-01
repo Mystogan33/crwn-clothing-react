@@ -10,8 +10,7 @@ const SignUpTitle = styled.h2`
   margin: 10px 0;
 `;
 
-const SignUpForm = styled.form`
-`;
+const SignUpForm = styled.form``;
 
 export {
   SignUpContainer,

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 
 import { signUpStart } from '../../redux/user/user.actions';
 
@@ -11,8 +11,18 @@ import {
   SignUpTitle,
   SignUpForm
 } from './sign-up.styles';
+import { Dispatch } from 'redux';
+import { SignUpCredentials } from '../../interfaces/interfaces';
 
-export const SignUpComponent = ({ signUpStart }) => {
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  signUpStart: (userCredentials: SignUpCredentials) => dispatch(signUpStart(userCredentials))
+});
+
+const connector = connect(null, mapDispatchToProps);
+type ReduxProps = ConnectedProps<typeof connector>;
+type SignUpProps = ReduxProps;
+
+export const SignUpComponent = ({ signUpStart }: SignUpProps) => {
 
   const [userCredentials, setCredentials] = useState({
     displayName: '',
@@ -23,12 +33,12 @@ export const SignUpComponent = ({ signUpStart }) => {
 
   const { displayName, email, password, confirmPassword } = userCredentials;
 
-  const handleChange = event => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCredentials({ ...userCredentials, [name]: value});
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if(password !== confirmPassword) {
@@ -48,7 +58,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           type="text"
           name="displayName"
           value={displayName}
-          onChange={handleChange}
+          handleChange={handleChange}
           label='Display Name'
           autoComplete="on"
         />
@@ -56,7 +66,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           type="email"
           name="email"
           value={email}
-          onChange={handleChange}
+          handleChange={handleChange}
           label='Email'
           autoComplete="email"
         />
@@ -64,7 +74,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           type="password"
           name="password"
           value={password}
-          onChange={handleChange}
+          handleChange={handleChange}
           label='Password'
           autoComplete="new-password"
         />
@@ -72,7 +82,7 @@ export const SignUpComponent = ({ signUpStart }) => {
           type="password"
           name="confirmPassword"
           value={confirmPassword}
-          onChange={handleChange}
+          handleChange={handleChange}
           label='Confirm Password'
           autoComplete="off"
         />
@@ -82,8 +92,4 @@ export const SignUpComponent = ({ signUpStart }) => {
   )
 };
 
-const mapDispatchToProps = dispatch => ({
-  signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
-});
-
-export const SignUp = connect(null, mapDispatchToProps)(SignUpComponent);
+export const SignUp = connector(SignUpComponent);

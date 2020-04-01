@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import {
   GroupContainer,
@@ -6,7 +6,13 @@ import {
   FormInputLabel
 } from './form-input.styles';
 
-export const FormInput = ({handleChange, label, ...otherProps}) => (
+interface FormInputProps {
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void,
+  label: string,
+  [x: string]: any
+};
+
+export const FormInput = ({ handleChange, label, ...otherProps }: FormInputProps) => (
   <GroupContainer>
     <FormInputContainer onChange={handleChange} {...otherProps} />
     { label ? (
