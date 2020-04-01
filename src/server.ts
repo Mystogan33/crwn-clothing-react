@@ -11,6 +11,7 @@ if(process.env.NODE_ENV !== 'production') {
 };
 
 const secretKey = process.env.STRIPE_SECRET_KEY!;
+console.log(secretKey);
 const stripe = new Stripe(secretKey);
 
 const app = express();
@@ -48,8 +49,10 @@ app.post('/payment', (req, res) => {
   };
 
   stripe.charges.create(body, (stripeErr, stripeRes) => {
-    if(stripeErr)
+    if(stripeErr) {
       res.status(500).send({ error: stripeErr });
+      console.log(stripeErr);
+    }
     else
       res.status(200).send({ success: stripeRes })
   });

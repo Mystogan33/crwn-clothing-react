@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 ;
 const secretKey = process.env.STRIPE_SECRET_KEY;
+console.log(secretKey);
 const stripe = new stripe_1.default(secretKey);
 const app = express_1.default();
 const port = process.env.PORT || 5000;
@@ -45,14 +46,17 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.post('/payment', (req, res) => {
     const { token: { id }, amount } = req.body;
+    console.log(id);
     const body = {
         source: id,
         amount,
         currency: 'usd'
     };
     stripe.charges.create(body, (stripeErr, stripeRes) => {
-        if (stripeErr)
+        if (stripeErr) {
             res.status(500).send({ error: stripeErr });
+            console.log(stripeErr);
+        }
         else
             res.status(200).send({ success: stripeRes });
     });
