@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {
   MenuItemContainer,
@@ -8,6 +8,9 @@ import {
   ContentTitle,
   ContentSubtitle
 } from './menu-item.styles';
+import { ICategory } from '../../interfaces/interfaces';
+
+type MenuItemProps = Omit<ICategory, 'id'> & RouteComponentProps;
 
 export const MenuItemComponent = ({
     title,
@@ -16,7 +19,7 @@ export const MenuItemComponent = ({
     history,
     linkUrl,
     match
-  }) => (
+  }: MenuItemProps) => (
     <MenuItemContainer
       size={size}
       onClick={() => history.push(`${match.url}${linkUrl}`)}
