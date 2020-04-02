@@ -5,7 +5,7 @@ import { selectCartItems } from './cart.selectors';
 import { clearCart, setCartFromFirebase } from './cart.actions';
 
 import { getUserCartRef } from '../../firebase/firebase.utils';
-import { ADD_ITEM, REMOVE_ITEM, CLEAR_ITEM_FROM_CART } from './cart.types';
+import { ADD_ITEM, REMOVE_ITEM, CLEAR_ITEM_FROM_CART, CLEAR_CART } from './cart.types';
 import { SIGN_OUT_SUCCESS, SIGN_IN_SUCCESS, SignInSuccessAction } from '../user/user.types';
 
 export function* clearCartOnSignOut() {
@@ -49,7 +49,8 @@ export function* onCartChange() {
     [
       ADD_ITEM,
       REMOVE_ITEM,
-      CLEAR_ITEM_FROM_CART
+      CLEAR_ITEM_FROM_CART,
+      CLEAR_CART
     ],
     updateCartInFirebase
   );
