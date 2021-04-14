@@ -20,6 +20,4 @@ const rootReducer = combineReducers({
   shop: shopReducer
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-
 export default persistReducer(persistConfig, rootReducer);
