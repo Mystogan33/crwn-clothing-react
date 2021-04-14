@@ -24,7 +24,7 @@ export const createUserProfileDocument = async (userAuth: firebase.User, additio
 
   if(!userSnapShot.exists) {
     const { displayName, email } = userAuth;
-    const createdAt = new Date();
+    const createdAt = new Date().toJSON();
 
     try {
       await userRef.set({

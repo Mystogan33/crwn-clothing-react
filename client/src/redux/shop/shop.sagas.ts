@@ -8,11 +8,11 @@ import {
   fetchCollectionsFailure
 } from './shop.actions';
 
-export function* fetchCollectionsAsync() {
+export function* fetchCollectionsAsync(): Generator {
   try {
     const collectionRef = firestore.collection('collections');
-    const snapshot: firebase.firestore.QuerySnapshot = yield collectionRef.get();
-    const collectionsMap = yield call(convertCollectionsSnapshotToMap, snapshot);
+    const snapshot: any = yield collectionRef.get();
+    const collectionsMap: any = yield call(convertCollectionsSnapshotToMap, snapshot);
     yield put(fetchCollectionsSuccess(collectionsMap));
   } catch(error) {
     yield put(fetchCollectionsFailure(error.message))
