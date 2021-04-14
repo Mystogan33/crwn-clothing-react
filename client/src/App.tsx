@@ -36,6 +36,8 @@ const App = ({ checkUserSession, currentUser }: AppProps) => {
     checkUserSession();
   }, [checkUserSession]);
 
+  const renderedSignIn = () => currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />;
+
   return (
     <div className="App">
       <GlobalStyle />
@@ -47,11 +49,7 @@ const App = ({ checkUserSession, currentUser }: AppProps) => {
               <Route exact path='/' component={HomePage} />
               <Route path='/shop' component={ShopPage} />
               <Route exact path='/checkout' component={CheckoutPage} />
-              <Route exact path='/signIn' render={() => currentUser
-                  ? <Redirect to='/' />
-                  : <SignInAndSignUpPage />
-                }
-              />
+              <Route exact path='/signIn' render={renderedSignIn} />
             </Suspense>
           </ErrorBoundary>
         </Switch>
