@@ -29,46 +29,39 @@ const path_1 = require("path");
 const compression_1 = __importDefault(require("compression"));
 const express_sslify_1 = require("express-sslify");
 const stripe_1 = __importDefault(require("stripe"));
-if (process.env.NODE_ENV !== 'production') {
+const { PORT, NODE_ENV, STRIPE_SECRET_KEY } = process.env;
+if (NODE_ENV !== 'production')
     require('dotenv').config();
-}
-;
-const secretKey = process.env.STRIPE_SECRET_KEY;
+const secretKey = STRIPE_SECRET_KEY;
 const stripe = new stripe_1.default(secretKey);
 const app = express_1.default();
-const port = process.env.PORT || 5000;
+const port = PORT || 5000;
 app.use([
     body_parser_1.json(),
     body_parser_1.urlencoded({ extended: true }),
     cors_1.default()
 ]);
-if (process.env.NODE_ENV === 'production') {
+if (NODE_ENV === 'production') {
     app.use([
         compression_1.default(),
         express_sslify_1.HTTPS({ trustProtoHeader: true }),
         express_1.static(path_1.join(__dirname, '../', 'client/build'))
     ]);
-    app.get('/service-worker.js', (_, res) => {
-        res.sendFile('/service-worker.js');
-    });
-    app.get('*', (_, res) => {
-        res.sendFile('/index.html');
-    });
+    app
+        .get('/service-worker.js', (_, { sendFile }) => sendFile('/service-worker.js'))
+        .get('*', (_, { sendFile }) => sendFile('/index.html'));
 }
-app.post('/payment', (req, res) => {
-    const { token: { id }, amount } = req.body;
-    const body = {
+app.post('/payment', ({ body: { token: { id }, amount } }, res) => {
+    const chargesBody = {
         source: id,
         amount,
         currency: 'usd'
     };
-    stripe.charges.create(body, (stripeErr, stripeRes) => {
-        if (stripeErr) {
-            res.status(500).send({ error: stripeErr });
-            console.log(stripeErr);
-        }
+    stripe.charges.create(chargesBody, (error, success) => {
+        if (error)
+            res.status(500).send({ error });
         else
-            res.status(200).send({ success: stripeRes });
+            res.status(200).send({ success });
     });
 });
 app.listen(port);
