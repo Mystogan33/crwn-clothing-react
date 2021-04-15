@@ -1,4 +1,4 @@
-import directoryReducer from './directory.reducer';
+import directoryReducer from './directorySlice';
 import { DIRECTORY_DATA } from './directory.data';
 
 const initialState = {
@@ -7,6 +7,6 @@ const initialState = {
 
 describe('directoryReducer', () => {
   it('should return initial state', () => {
-    expect(directoryReducer(undefined, {})).toEqual(initialState);
+    expect(directoryReducer(undefined, { type: undefined })).toEqual(initialState);
   })
 });

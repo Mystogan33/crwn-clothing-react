@@ -1,7 +1,7 @@
 import { ICartItem, ICollectionItem, ICartItems } from "../../interfaces/interfaces";
 
 export const addItemToCart = (cartItems: ICartItems, cartItemToAdd: ICollectionItem | ICartItem) => {
-  const filterById = (cartItem: typeof cartItemToAdd) => cartItem.id === cartItemToAdd.id;
+  const filterById = ({ id }: typeof cartItemToAdd) => id === cartItemToAdd.id;
   const isCartItemExist = cartItems.find(filterById);
 
   if(isCartItemExist) {
@@ -16,7 +16,7 @@ export const addItemToCart = (cartItems: ICartItems, cartItemToAdd: ICollectionI
 };
 
 export const removeItemFromCart = (cartItems: ICartItems, cartItemToRemove: ICartItem) => {
-  const filterById = (cartItem: ICartItem) => cartItem.id === cartItemToRemove.id;
+  const filterById = ({ id }: ICartItem) => id === cartItemToRemove.id;
   const existingCartItem = cartItems.find(filterById);
 
   if(existingCartItem && existingCartItem.quantity === 1) {
@@ -31,6 +31,6 @@ export const removeItemFromCart = (cartItems: ICartItems, cartItemToRemove: ICar
 };
 
 export const clearItemFromCart = (cartItems: ICartItems, cartItemToClear: ICartItem) => {
-  const filterById = (cartItem: ICartItem) => cartItem.id !== cartItemToClear.id;
+  const filterById = ({ id }: ICartItem) => id !== cartItemToClear.id;
   return cartItems.filter(filterById);
 };

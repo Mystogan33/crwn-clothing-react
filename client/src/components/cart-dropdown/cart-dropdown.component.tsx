@@ -1,14 +1,9 @@
-import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { RootState } from '../../redux/root-reducer';
-
-import { createStructuredSelector } from 'reselect';
+import React, { FC, MouseEvent } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
-
+import { toggleCartHidden } from '../../redux/cart/cartSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { CartItem } from '../cart-item/cart-item.component';
-import { ICartItems } from '../../interfaces/interfaces';
 
 import {
   CartDropdownContainer,
@@ -17,33 +12,31 @@ import {
   CartItemsContainer
 } from './cart-dropdown.styles';
 
-interface selectors {
-  cartItems: ICartItems
+
+type CartDropdownProps = RouteComponentProps;
+
+export const CartDropdownCmp: FC<CartDropdownProps> = ({ history: { push } }) => {
+  const cartItems = useAppSelector(selectCartItems);
+  const dispatch = useAppDispatch();
+  
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    dispatch(toggleCartHidden());
+    push('/checkout');
+  };
+  
+  const renderedCartItems = cartItems.length
+    ? cartItems.map(item => <CartItem key={item.id} item={item} />)
+      : ( <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer> );
+
+  return (
+    <CartDropdownContainer>
+      <CartItemsContainer>
+        {renderedCartItems}
+      </CartItemsContainer>
+      <CartDropdownButton
+        onClick={handleClick}>GO TO CHECKOUT</CartDropdownButton>
+    </CartDropdownContainer>
+  )
 };
 
-const mapStateToProps = createStructuredSelector<RootState, selectors>({
-  cartItems: selectCartItems
-});
-
-const connector = connect(mapStateToProps);
-type ReduxProps = ConnectedProps<typeof connector>;
-type AppProps = ReduxProps & RouteComponentProps;
-
-export const CartDropdownCmp = ({ cartItems, dispatch , history }: AppProps) => (
-  <CartDropdownContainer>
-    <CartItemsContainer>
-      { cartItems.length
-        ? cartItems.map(item => <CartItem key={item.id} item={item} />)
-        : <EmptyMessageContainer>Your cart is empty</EmptyMessageContainer>
-      }
-    </CartItemsContainer>
-    <CartDropdownButton
-      onClick={() => {
-        dispatch(toggleCartHidden());
-        history.push('/checkout');
-      }}>GO TO CHECKOUT</CartDropdownButton>
-  </CartDropdownContainer>
-);
-
-const connectedComponent = connector(CartDropdownCmp);
-export const CartDropdown = withRouter(connectedComponent);
+export const CartDropdown = withRouter(CartDropdownCmp);

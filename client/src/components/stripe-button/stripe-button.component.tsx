@@ -1,36 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import StripeCheckout, { Token } from 'react-stripe-checkout';
 import axios from 'axios';
-import { Dispatch } from 'redux';
-import { clearCart } from '../../redux/cart/cart.actions';
-import { connect, ConnectedProps } from 'react-redux';
+import { useAppDispatch } from '../../redux/hooks';
+import { clearCart } from '../../redux/cart/cartSlice';
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  clearCart: () => dispatch(clearCart())
-});
-
-const connector = connect(null, mapDispatchToProps);
-type ReduxProps = ConnectedProps<typeof connector>;
-type StripeCheckoutProps = ReduxProps & {
+type StripeCheckoutProps = {
   price: number;
 };
 
-export const StripeCheckoutButtonCmp = ({ price, clearCart }: StripeCheckoutProps) => {
+export const StripeCheckoutButton: FC<StripeCheckoutProps> = ({ price }) => {
+  const dispatch = useAppDispatch();
   const priceForStripe = price * 100;
   const publishableKey = "pk_test_5FzXguWrhk37WLQGCeLhSTFw00TrIwxkJp";
 
   const onToken = async (token: Token) => {
     try {
-      await axios({
-        url: 'payment',
-        method: 'post',
-        data: { amount: priceForStripe, token }
-      });
-      clearCart();
-      alert('Payment successful');
+      const { data } = await axios.post('/payment', { amount: priceForStripe, token });
+      if(data) {
+        dispatch(clearCart());
+        alert('Payment successful');
+      }
     } catch (error) {
       alert('There was an issue with your payment. Please use the proper credit card');
-      console.log(error);
     };
   };
 
@@ -49,5 +40,3 @@ export const StripeCheckoutButtonCmp = ({ price, clearCart }: StripeCheckoutProp
     />
   );
 };
-
-export const StripeCheckoutButton = connector(StripeCheckoutButtonCmp);

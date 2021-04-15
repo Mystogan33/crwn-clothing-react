@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ICartItem } from '../../interfaces/interfaces';
 
 import {
@@ -11,7 +11,7 @@ type CartItemProps = {
   item: ICartItem
 };
 
-const CartItemComponent = ({ item: { imageUrl, price, name, quantity }}: CartItemProps) => (
+const CartItemComponent: FC<CartItemProps> = ({ item: { imageUrl, price, name, quantity } }) => (
   <CartItemContainer>
     <CartItemImage src={imageUrl} alt="item"/>
     <ItemDetailsContainer>

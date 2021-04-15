@@ -1,18 +1,27 @@
-import React from 'react';
+import React from "react";
+import { useAppSelector } from "../../redux/hooks";
+import {
+	selectIsCollectionFetching,
+	selectShopCollectionsForPreview,
+} from "../../redux/shop/shop.selectors";
 
-import { CollectionPreview } from '../collection-preview/collection-preview.component';
-import { CollectionsOverviewContainer } from './collections-overview.styles';
-import { ICollection } from '../../interfaces/interfaces';
+import { CollectionPreview } from "../collection-preview/collection-preview.component";
+import { Spinner } from "../spinner/spinner.component";
+import { CollectionsOverviewContainer } from "./collections-overview.styles";
 
-type CollectionOverviewProps = {
-  collections: ICollection[]
+export const CollectionsOverview = () => {
+	const isLoading = useAppSelector(selectIsCollectionFetching);
+	const collections = useAppSelector(selectShopCollectionsForPreview);
+
+	const renderedCollectionPreview = collections.map(({ id, ...otherProps }) => (
+		<CollectionPreview key={id} {...otherProps} />
+	));
+
+	return (
+		<CollectionsOverviewContainer>
+			{isLoading ? <Spinner /> : renderedCollectionPreview}
+		</CollectionsOverviewContainer>
+	);
 };
 
-export const CollectionsOverview = ({ collections }: CollectionOverviewProps) => (
-  <CollectionsOverviewContainer>
-    { collections.map(({id, ...otherProps }) => (
-        <CollectionPreview key={id} {...otherProps} />
-      ))
-    }
-  </CollectionsOverviewContainer>
-);
+export default CollectionsOverview;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import {
   GroupContainer,
@@ -12,11 +12,9 @@ interface FormInputProps {
   [x: string]: any
 };
 
-export const FormInput = ({ handleChange, label, ...otherProps }: FormInputProps) => (
+export const FormInput: FC<FormInputProps> = ({ handleChange, label, ...otherProps }) => (
   <GroupContainer>
     <FormInputContainer onChange={handleChange} {...otherProps} />
-    { label ? (
-      <FormInputLabel>{label}</FormInputLabel>
-    ) : null }
+    { label && <FormInputLabel>{label}</FormInputLabel> }
   </GroupContainer>
 );

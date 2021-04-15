@@ -1,5 +1,4 @@
-import * as CartActions from './cart.actions';
-import cartReducer from './cart.reducer';
+import cartReducer, { addItem, clearCart, clearCartItem, removeCartItem, toggleCartHidden } from './cartSlice';
 
 const initialState = {
   hidden: true,
@@ -8,11 +7,11 @@ const initialState = {
 
 describe('cartReducer', () => {
   it('should return initial state', () => {
-    expect(cartReducer(undefined, {})).toEqual(initialState);
+    expect(cartReducer(undefined, { type: undefined })).toEqual(initialState);
   });
 
   it('should toggle hidden with toggleHidden action', () => {
-    expect(cartReducer(initialState, CartActions.toggleCartHidden()).hidden).toBe(false);
+    expect(cartReducer(initialState, toggleCartHidden()).hidden).toBe(false);
   });
 
   it('should add item to cart if payload not matching existing item', () => {
@@ -24,7 +23,7 @@ describe('cartReducer', () => {
       quantity: 1
     };
 
-    const stateCartItems = cartReducer(initialState, CartActions.addItem(itemToAdd)).cartItems;
+    const stateCartItems = cartReducer(initialState, addItem(itemToAdd)).cartItems;
     expect(stateCartItems).toEqual([itemToAdd]);
   });
 
@@ -42,7 +41,7 @@ describe('cartReducer', () => {
       cartItems: [mockItem]
     };
 
-    const stateCartItems = cartReducer(mockPrevState, CartActions.addItem(mockItem)).cartItems;
+    const stateCartItems = cartReducer(mockPrevState, addItem(mockItem)).cartItems;
     expect(stateCartItems[0].quantity).toBe(3);
   });
 
@@ -69,7 +68,7 @@ describe('cartReducer', () => {
       ]
     };
 
-    expect(cartReducer(mockPrevState, CartActions.removeItemFromCart(mockItem)).cartItems)
+    expect(cartReducer(mockPrevState, removeCartItem(mockItem)).cartItems)
       .toEqual(expect.not.arrayContaining([mockItem]));
   });
 
@@ -96,7 +95,7 @@ describe('cartReducer', () => {
       ]
     }
 
-    expect(cartReducer(mockPrevState, CartActions.removeItemFromCart(mockItem)).cartItems[0].quantity)
+    expect(cartReducer(mockPrevState, removeCartItem(mockItem)).cartItems[0].quantity)
       .toBe(2);
   });
 
@@ -123,7 +122,7 @@ describe('cartReducer', () => {
       ]
     };
 
-    expect(cartReducer(mockPrevState, CartActions.clearItemFromCart(mockItem)).cartItems)
+    expect(cartReducer(mockPrevState, clearCartItem(mockItem)).cartItems)
     .toEqual(expect.not.arrayContaining([mockItem]));
   });
 
@@ -149,6 +148,6 @@ describe('cartReducer', () => {
       ]
     }
 
-    expect(cartReducer(mockPrevState, CartActions.clearCart()).cartItems).toEqual([]);
+    expect(cartReducer(mockPrevState, clearCart()).cartItems).toEqual([]);
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {
@@ -12,18 +12,19 @@ import { ICollection } from '../../interfaces/interfaces';
 
 type CollectionPreviewProps = RouteComponentProps & ICollection;
 
-export const CollectionPreviewComponent = ({ title, items, routeName, match }: CollectionPreviewProps) => (
-  <CollectionPreviewContainer>
-    <TitleContainer to={`${match.path}/${routeName}`}>{title.toUpperCase()}</TitleContainer>
-    <PreviewContainer>
-      { items
-        .filter((item, idx) => idx < 4)
-        .map((item) => (
-          <CollectionItem key={item.id} item={item} />
-        ))
-      }
-    </PreviewContainer>
-  </CollectionPreviewContainer>
-);
+export const CollectionPreviewComponent: FC<CollectionPreviewProps> = ({ title, items, routeName, match: { path } }) => {
+  const renderedfilteredItems = items
+    .filter((_, idx) => idx < 4)
+    .map(item => <CollectionItem key={item.id} item={item} />);
+  
+  return (
+    <CollectionPreviewContainer>
+      <TitleContainer to={`${path}/${routeName}`}>{title.toUpperCase()}</TitleContainer>
+      <PreviewContainer>
+        { renderedfilteredItems }
+      </PreviewContainer>
+    </CollectionPreviewContainer>
+  );
+};
 
 export const CollectionPreview = withRouter(CollectionPreviewComponent);

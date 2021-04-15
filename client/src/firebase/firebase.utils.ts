@@ -55,22 +55,20 @@ export const getUserCartRef = async (userId: string) => {
 };
 
 export const convertCollectionsSnapshotToMap = (collectionsSnapshot: firebase.firestore.QuerySnapshot) => {
-  const transformedCollection = collectionsSnapshot.docs.map(doc => {
+  const transformedCollection: ICollection[] = collectionsSnapshot.docs.map(doc => {
     const { title, items } = doc.data();
 
-    const collection: ICollection = {
+    return {
       routeName: encodeURI(title.toLowerCase()),
       id: doc.id,
       title,
       items
-    }
-
-    return collection;
+    };
   });
 
   return transformedCollection.reduce((accumulator: ICollections, collection) => {
-    accumulator[collection.title.toLowerCase()] = collection;
-    return accumulator;
+    const upperCasedTitle = collection.title.toLowerCase();
+    return {...accumulator, [upperCasedTitle]: collection }
   } , {});
 };
 
@@ -82,6 +80,15 @@ export const getCurrentUser = () => {
     }, reject);
   });
 };
+
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+export default firebase;
 
 // // For dev purpose
 // export const addCollectionAndDocuments = async (collectionKey: string, objectsToAdd: ICollectionItem[]) => {
@@ -95,12 +102,3 @@ export const getCurrentUser = () => {
 
 //   return await batch.commit();
 // };
-
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
-
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
-
-export default firebase;

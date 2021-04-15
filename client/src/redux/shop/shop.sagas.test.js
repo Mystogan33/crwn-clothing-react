@@ -5,19 +5,14 @@ import {
   convertCollectionsSnapshotToMap
 } from '../../firebase/firebase.utils';
 
-import {
-  fetchCollectionsSuccess,
-  fetchCollectionsFailure
-} from './shop.actions';
-
-import { fetchCollectionsAsync, fetchCollectionsStart } from './shop.sagas';
-import { FETCH_COLLECTIONS_START } from './shop.types';
+import { fetchCollectionsAsync, onFetchCollectionsStart } from './shop.sagas';
+import { fetchCollectionsStart } from './shopSlice';
 
 describe('fetch collections start saga', () => {
   it('should trigger on FETCH_COLLECTIONS_START', () => {
-    const generator = fetchCollectionsStart();
+    const generator = onFetchCollectionsStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(FETCH_COLLECTIONS_START,fetchCollectionsAsync));
+      .toEqual(takeLatest(fetchCollectionsStart.type,fetchCollectionsAsync));
   });
 });
 

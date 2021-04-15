@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { RootState } from '../root-reducer';
+import { RootState } from '../store';
 
 const selectShop = (state: RootState) => state.shop;
 
@@ -20,7 +20,7 @@ export const selectShopCollectionsForPreview = createSelector(
 export const selectCollection = (collectionUrlParam: string) => (
   createSelector(
     [selectShopCollections],
-    collections => (collections ? collections[collectionUrlParam] : null)
+    collections => collections ? collections[collectionUrlParam] : null
   )
 );
 

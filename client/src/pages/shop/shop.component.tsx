@@ -1,31 +1,22 @@
-import React, { useEffect, lazy, Suspense } from 'react';
+import React, { useEffect, lazy, Suspense, useCallback, FC } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
 
-import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
+import { useAppDispatch } from '../../redux/hooks';
+import { fetchCollectionsStart } from '../../redux/shop/shopSlice';
 
+// Components
 import { Spinner } from '../../components';
 import { ShopPageContainer } from './shop.styles';
+const CollectionsOverviewContainer = lazy(() => import('../../components/collections-overview/collections-overview.component'))
+const CollectionPageContainer = lazy(() => import('../collection/collection.component'));
 
-const CollectionsOverviewContainer = lazy(() => import('../../components/collections-overview/collections-overview.container'));
-const CollectionPageContainer = lazy(() => import('../collection/collection.container'));
-
-/*********/
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
-});
-
-const connector = connect(null, mapDispatchToProps);
-type ReduxProps = ConnectedProps<typeof connector>;
-type AppProps = ReduxProps & RouteComponentProps;
-
-export const ShopPage = ({ fetchCollectionsStart, match: { path } }: AppProps) => {
+export const ShopPage: FC<RouteComponentProps> = ({ match: { path } }) => {
+  const dispatch = useAppDispatch();
+  const startCollectionsFetch = useCallback(() => dispatch(fetchCollectionsStart()), [dispatch]);
 
   useEffect(() => {
-    fetchCollectionsStart();
-  }, [fetchCollectionsStart]);
+    startCollectionsFetch();
+  }, [startCollectionsFetch]);
 
   return (
     <ShopPageContainer>
@@ -44,4 +35,4 @@ export const ShopPage = ({ fetchCollectionsStart, match: { path } }: AppProps) =
   );
 };
 
-export default connector(ShopPage);
+export default ShopPage;

@@ -1,9 +1,7 @@
-import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { Dispatch } from 'redux';
-
-import { addItem } from '../../redux/cart/cart.actions';
+import React, { FC } from 'react';
 import { ICollectionItem } from '../../interfaces/interfaces';
+import { addItem } from '../../redux/cart/cartSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 import {
   CollectionItemContainer,
@@ -14,18 +12,15 @@ import {
   PriceContainer
 } from './collection-item.styles';
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addItem: (item: ICollectionItem) => dispatch(addItem(item))
-});
-
-const connector = connect(null, mapDispatchToProps);
-type ReduxProps = ConnectedProps<typeof connector>;
-type CollectionItemProps = ReduxProps & {
+type CollectionItemProps = {
   item: ICollectionItem
 };
 
-export const CollectionItemComponent = ({item, addItem}: CollectionItemProps) => {
+export const CollectionItem: FC<CollectionItemProps> = ({ item }) => {
   const { name, price, imageUrl } = item;
+  const dispatch = useAppDispatch();
+  const addItemCart = () => dispatch(addItem(item));
+
   return (
     <CollectionItemContainer>
       <BackgroundImage className='image' imageUrl={imageUrl} />
@@ -33,9 +28,7 @@ export const CollectionItemComponent = ({item, addItem}: CollectionItemProps) =>
         <NameContainer>{name}</NameContainer>
         <PriceContainer>${price}</PriceContainer>
       </CollectionFooterContainer>
-      <AddButton onClick={() => addItem(item)} inverted>Add to cart</AddButton>
+      <AddButton onClick={addItemCart} inverted>Add to cart</AddButton>
     </CollectionItemContainer>
   );
 };
-
-export const CollectionItem = connector(CollectionItemComponent);

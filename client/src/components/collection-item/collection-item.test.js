@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { CollectionItemComponent } from './collection-item.component';
+import { CollectionItem } from './collection-item.component';
 import { BackgroundImage, CollectionFooterContainer, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
 describe('Collection Item Component', () => {
@@ -27,7 +27,7 @@ describe('Collection Item Component', () => {
       addItem: mockAddItem
     };
 
-    wrapper = shallow(<CollectionItemComponent {...mockProps} />);
+    wrapper = shallow(<CollectionItem {...mockProps} />);
   });
 
   it('should render Collection Item component', () => {

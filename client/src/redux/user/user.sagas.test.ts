@@ -1,10 +1,5 @@
+import { User } from 'firebase';
 import { takeLatest, put, call } from 'redux-saga/effects';
-
-import {
-  signInFailure,
-  signOutSuccess,
-  signOutFailure,
-} from './user.actions';
 
 import {
   auth,
@@ -27,14 +22,13 @@ import {
   onSignUpStart,
   onSignUpSuccess
 } from './user.sagas';
-
-import { SIGN_UP_SUCCESS, SIGN_UP_START, SIGN_OUT_START, CHECK_USER_SESSION, EMAIL_SIGN_IN_START, GOOGLE_SIGN_IN_START } from './user.types';
+import { checkUserSession, emailSignInStart, googleSignInStart, signInFailure, signOutFailure, signOutStart, signOutSuccess, signUpStart, signUpSuccess } from './userSlice';
 
 describe('on signup success saga', () => {
   it('should trigger on SIGN_UP_SUCCESS', () => {
     const generator = onSignUpSuccess();
     expect(generator.next().value)
-      .toEqual(takeLatest(SIGN_UP_SUCCESS, signInAfterSignUp));
+      .toEqual(takeLatest(signUpSuccess.type, signInAfterSignUp));
   });
 });
 
@@ -42,7 +36,7 @@ describe('on signup start saga', () => {
   it('should trigger on SIGN_UP_START', () => {
     const generator = onSignUpStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(SIGN_UP_START, signUp));
+      .toEqual(takeLatest(signUpStart.type, signUp));
   });
 });
 
@@ -50,7 +44,7 @@ describe('on signout start saga', () => {
   it('should trigger on SIGN_OUT_START', () => {
     const generator = onSignOutStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(SIGN_OUT_START, signOut));
+      .toEqual(takeLatest(signOutStart.type, signOut));
   });
 });
 
@@ -58,7 +52,7 @@ describe('on check user session saga', () => {
   it('should trigger on CHECK_USER_SESSION', () => {
     const generator = onCheckUserSession();
     expect(generator.next().value)
-      .toEqual(takeLatest(CHECK_USER_SESSION, isUserAuthenticated));
+      .toEqual(takeLatest(checkUserSession.type, isUserAuthenticated));
   });
 });
 
@@ -66,7 +60,7 @@ describe('on email sign in start saga', () => {
   it('should trigger on EMAIL_SIGN_IN_START', () => {
     const generator = onEmailSignInStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(EMAIL_SIGN_IN_START, signInWithEmail));
+      .toEqual(takeLatest(emailSignInStart.type, signInWithEmail));
   });
 });
 
@@ -74,14 +68,16 @@ describe('on google sign in start saga', () => {
   it('should trigger on GOOGLE_SIGN_IN_START', () => {
     const generator = onGoogleSignInStart();
     expect(generator.next().value)
-      .toEqual(takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle));
+      .toEqual(takeLatest(googleSignInStart.type, signInWithGoogle));
   });
 });
 
 describe('on sign in after sign up saga', () => {
   it('should fire getSnapshotFromUserAuth', () => {
     const mockUser = {};
-    const mockAdditionnalData = {};
+    const mockAdditionnalData = {
+      displayName: "Jean"
+    };
     const mockAction = {
       payload: {
         user: mockUser,
@@ -91,7 +87,7 @@ describe('on sign in after sign up saga', () => {
 
     const generator = signInAfterSignUp(mockAction);
     expect(generator.next().value)
-      .toEqual(getSnapshotFromUserAuth(mockUser, mockAdditionnalData));
+      .toEqual(getSnapshotFromUserAuth(mockUser as User, mockAdditionnalData));
   });
 });
 
@@ -154,7 +150,7 @@ describe('is user authenticated saga', () => {
   it('should call getSnapshotFromUserAuth if userAuth exists', () => {
     const mockUserAuth = { uid: '123da' };
     expect(generator.next(mockUserAuth).value)
-      .toEqual(getSnapshotFromUserAuth(mockUserAuth));
+      .toEqual(getSnapshotFromUserAuth(mockUserAuth as User));
   });
 
   it('should trigger signInFailure on error', () => {
@@ -167,16 +163,19 @@ describe('is user authenticated saga', () => {
 
 describe('get snapshot from userAuth', () => {
   const mockUserAuth = {};
-  const mockAdditionnalData = {};
-  const generator = getSnapshotFromUserAuth(mockUserAuth, mockAdditionnalData);
+  const mockAdditionnalData = {
+    displayName: "Jean"
+  };
+
+  const generator = getSnapshotFromUserAuth(mockUserAuth as User, mockAdditionnalData);
 
   it('should call createUserProfileDocument', () => {
     expect(generator.next().value)
-      .toEqual(call(createUserProfileDocument, mockUserAuth, mockAdditionnalData));
+      .toEqual(call(createUserProfileDocument, mockUserAuth as User, mockAdditionnalData));
   });
 
   it('should call signInFailure on error', () => {
-    const newGenerator = getSnapshotFromUserAuth(mockUserAuth, mockAdditionnalData);
+    const newGenerator = getSnapshotFromUserAuth(mockUserAuth as User, mockAdditionnalData);
     newGenerator.next();
     expect(newGenerator.throw('error').value)
       .toEqual(put(signInFailure('error')));

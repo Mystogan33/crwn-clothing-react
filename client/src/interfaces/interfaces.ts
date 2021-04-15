@@ -42,7 +42,10 @@ export interface ICategory {
 export interface ICategories extends Array<ICategory> {};
 
 export type User = Partial<firebase.User> & {
-  id: string
+  id: string;
+  additionalData?: {
+    displayName: string;
+  }
 };
 
 export type SignInCredentials = {

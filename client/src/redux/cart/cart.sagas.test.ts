@@ -1,8 +1,6 @@
 import { takeLatest, put } from 'redux-saga/effects';
-import { clearCart } from './cart.actions';
 import { clearCartOnSignOut, onSignOutSuccess, onUserSignIn, onCartChange, updateCartInFirebase, checkCartFromFirebase } from './cart.sagas';
 import { SIGN_OUT_SUCCESS, SIGN_IN_SUCCESS } from '../user/user.types';
-import { ADD_ITEM, REMOVE_ITEM, CLEAR_ITEM_FROM_CART } from './cart.types';
 
 describe('on signout success saga', () => {
   it('should trigger on SIGN_OUT_SUCESS', () => {
