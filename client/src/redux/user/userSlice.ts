@@ -12,7 +12,7 @@ const initialState: UserState = {
 };
 
 const onFailure = (state: UserState, { payload }: PayloadAction<ErrorMessage>) => {
-  state.error = payload;
+  state.error = payload
 };
 
 export const userSlice = createSlice({

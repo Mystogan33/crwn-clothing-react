@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, Suspense, useCallback } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
