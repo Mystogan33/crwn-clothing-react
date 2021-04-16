@@ -27,7 +27,6 @@ export const SignIn = () => {
 		email: "",
 		password: "",
 	});
-	const { email, password } = userCredentials;
 
 	const handleChange = ({
 		target: { value, name },
@@ -38,6 +37,8 @@ export const SignIn = () => {
 		event.preventDefault();
 		startEmailSignIn(userCredentials);
 	};
+
+	const { email, password } = userCredentials;
 
 	return (
 		<SignInContainer>

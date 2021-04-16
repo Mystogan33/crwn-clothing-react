@@ -22,7 +22,7 @@ export function* updateCartInFirebase(): Generator {
   }
 };
 
-export function* checkCartFromFirebase({ payload: user }: ReturnType<typeof signInSuccess>): Generator {
+export function* checkCartFromFirebase({ payload: user }: any): Generator {
   try {
     const cartRef: any = yield getUserCartRef(user.id);
     if(!cartRef) return;
@@ -34,20 +34,20 @@ export function* checkCartFromFirebase({ payload: user }: ReturnType<typeof sign
 };
 
 export function* onSignOutSuccess() {
-  yield takeLatest(signOutSuccess.type, clearCartOnSignOut);
+  yield takeLatest(signOutSuccess, clearCartOnSignOut);
 };
 
 export function* onUserSignIn() {
-  yield takeLatest(signInSuccess.type, checkCartFromFirebase);
+  yield takeLatest(signInSuccess, checkCartFromFirebase);
 };
 
 export function* onCartChange() {
   yield takeLatest(
     [
-      addItem.type,
-      removeCartItem.type,
-      clearCartItem.type,
-      clearCart.type
+      addItem,
+      removeCartItem,
+      clearCartItem,
+      clearCart
     ],
     updateCartInFirebase
   );

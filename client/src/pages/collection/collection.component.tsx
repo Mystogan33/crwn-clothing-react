@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { RouteComponentProps } from "react-router";
 
 import { CollectionItem } from "../../components";
-import { ICollection } from "../../interfaces/interfaces";
 import { useAppSelector } from "../../redux/hooks";
 import { selectCollection } from "../../redux/shop/shop.selectors";
 

@@ -18,13 +18,9 @@ const CheckoutPage = lazy(() => import('./pages/checkout/checkout.component'));
 const App = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
-  const isUserAuthenticated = useCallback(() => dispatch(checkUserSession()), [dispatch]);
+  const isUserAuthenticated = () => dispatch(checkUserSession());
 
-  useEffect(() => {
-    isUserAuthenticated();
-  }, [isUserAuthenticated]);
-
-  const renderedSignIn = () => currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />;
+  console.log(currentUser);
 
   return (
     <div className="App">
@@ -37,7 +33,7 @@ const App = () => {
               <Route exact path='/' component={HomePage} />
               <Route path='/shop' component={ShopPage} />
               <Route exact path='/checkout' component={CheckoutPage} />
-              <Route exact path='/signIn' render={renderedSignIn} />
+              <Route exact path='/signIn' render={() => currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />} />
             </Suspense>
           </ErrorBoundary>
         </Switch>
