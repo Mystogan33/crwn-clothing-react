@@ -20,7 +20,9 @@ const App = () => {
   const dispatch = useAppDispatch();
   const isUserAuthenticated = () => dispatch(checkUserSession());
 
-  console.log(currentUser);
+  useEffect(() => {
+    isUserAuthenticated();
+  }, [dispatch]);
 
   return (
     <div className="App">
