@@ -15,6 +15,7 @@ import {
 import rootReducer from './root-reducer';
 
 const { NODE_ENV } = process.env;
+const addLogger = NODE_ENV === 'development' ? logger : null;
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -30,9 +31,7 @@ const middleware = [...getDefaultMiddleware({
       REGISTER
     ]
   }
-}), sagaMiddleware];
-
-if(NODE_ENV === 'development') middleware.push(logger)
+}), sagaMiddleware, addLogger];
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -46,5 +45,3 @@ export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 
 export default { store, persistor };
-
-
